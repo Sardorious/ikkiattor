@@ -1,20 +1,24 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router";
-import { ShoppingBag, Search, Menu, X, Heart } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { ShoppingBag, Search, Menu, X, Heart, Languages } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 export function Navbar() {
+  const { t, i18n } = useTranslation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { totalItems, setIsCartOpen } = useCart();
   const location = useLocation();
 
   const navLinks = [
-    { label: "Home", to: "/" },
-    { label: "Shop", to: "/shop" },
-    { label: "Collections", to: "/collections" },
-    { label: "About", to: "/about" },
+    { label: t("nav.home"), to: "/" },
+    { label: t("nav.shop"), to: "/shop" },
+    { label: t("nav.collections"), to: "/collections" },
+    { label: t("nav.about"), to: "/about" },
   ];
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
 
   const isActive = (to: string) =>
     to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
@@ -60,6 +64,28 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-4">
+            {/* Language Switcher */}
+            <div className="relative group px-2">
+              <button className="text-[#d4d4d4] hover:text-[#c9a96e] flex items-center gap-1 transition-colors">
+                <Languages size={18} />
+                <span className="text-[0.65rem] font-medium uppercase tracking-widest">{i18n.language}</span>
+              </button>
+              <div className="absolute right-0 mt-2 w-20 bg-[#0d0d0d] border border-[#c9a96e]/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl">
+                {["uz", "ru", "en"].map((lng) => (
+                  <button
+                    key={lng}
+                    onClick={() => changeLanguage(lng)}
+                    className={`w-full text-left px-4 py-2 text-[0.7rem] uppercase tracking-widest hover:bg-[#c9a96e]/10 transition-colors ${
+                      i18n.language === lng ? "text-[#c9a96e]" : "text-[#888]"
+                    }`}
+                    style={{ fontFamily: "'Jost', sans-serif" }}
+                  >
+                    {lng}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <button
               onClick={() => setSearchOpen(!searchOpen)}
               className="text-[#d4d4d4] hover:text-[#c9a96e] transition-colors"

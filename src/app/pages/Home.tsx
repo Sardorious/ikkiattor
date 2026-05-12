@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { ArrowRight, ChevronDown, Star, Truck, RotateCcw, Shield, Gift } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { ProductCard } from "../components/ProductCard";
 import { useProducts, useCategories } from "../hooks/useProducts";
 
 export function Home() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -39,7 +41,7 @@ export function Home() {
               className="text-[#c9a96e] tracking-[0.4em] uppercase mb-4"
               style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem" }}
             >
-              New Collection 2026
+              {t("hero.subtitle")}
             </p>
             <h1
               className="text-white mb-6"
@@ -50,8 +52,7 @@ export function Home() {
                 lineHeight: 1.1,
               }}
             >
-              The Art of<br />
-              <em className="text-[#c9a96e]">Scent</em>
+              {t("hero.title")}
             </h1>
             <p
               className="text-[#aaa] mb-10 max-w-md"
@@ -65,7 +66,7 @@ export function Home() {
                 className="bg-[#c9a96e] text-[#0a0a0a] px-10 py-4 tracking-[0.2em] uppercase hover:bg-[#b8956a] transition-colors flex items-center gap-2"
                 style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", fontWeight: 500 }}
               >
-                Shop Now <ArrowRight size={14} />
+                {t("hero.cta")} <ArrowRight size={14} />
               </Link>
               <Link
                 to="/collections"
