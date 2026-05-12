@@ -60,7 +60,7 @@ jobs:
           host: ${{ secrets.HOST_IP }}
           username: ${{ secrets.HOST_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml"
+          source: "docker-compose.yml,nginx.conf"
           target: "~/ikkiattor"
 
       - name: Deploy via SSH
