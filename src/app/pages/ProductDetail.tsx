@@ -1,18 +1,23 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router";
 import { ArrowLeft, Star, ShoppingBag, Heart, Share2, ChevronDown, ChevronUp } from "lucide-react";
-import { products } from "../data/products";
+import { useProduct, useProducts } from "../hooks/useProducts";
 import { useCart } from "../context/CartContext";
 import { ProductCard } from "../components/ProductCard";
 
 export function ProductDetail() {
   const { id } = useParams();
   const { addToCart } = useCart();
-  const product = products.find((p) => p.id === Number(id));
+  const { product, loading: productLoading } = useProduct(id || "");
+  const { products, loading: productsLoading } = useProducts();
   const [liked, setLiked] = useState(false);
   const [added, setAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [openSection, setOpenSection] = useState<string | null>("description");
+
+  if (productLoading || productsLoading) {
+    return <div className="bg-[#0a0a0a] min-h-screen flex items-center justify-center text-white">Loading...</div>;
+  }
 
   if (!product) {
     return (
@@ -36,7 +41,7 @@ export function ProductDetail() {
     );
   }
 
-  const related = products.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 3);
+  const related = products ? products.filter((p) => p.id !== product.id && p.category === product.category).slice(0, 3) : [];
 
   const handleAdd = () => {
     for (let i = 0; i < quantity; i++) addToCart(product);

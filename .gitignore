@@ -1,0 +1,32 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Vite
+dist/
+dist-ssr/
+*.local
+
+# Prisma
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+backend/*.db
+backend/*.db-journal
+backend/.env
+
+# Backend
+backend/node_modules/
+backend/dist/
+backend/seed_error*.txt
+
+# IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

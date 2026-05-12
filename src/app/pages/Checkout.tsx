@@ -23,10 +23,36 @@ export function Checkout() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    clearCart();
+    try {
+      const response = await fetch("http://localhost:3001/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customerName: `${form.firstName} ${form.lastName}`,
+          email: form.email,
+          address: form.address,
+          city: form.city,
+          total: totalPrice + (totalPrice >= 150 ? 0 : 15),
+          items: items.map(item => ({
+            id: item.id,
+            quantity: item.quantity,
+            price: item.price
+          }))
+        }),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+        clearCart();
+      } else {
+        alert("Failed to place order. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   if (submitted) {

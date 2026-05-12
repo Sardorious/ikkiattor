@@ -2,14 +2,17 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { ArrowRight, ChevronDown, Star, Truck, RotateCcw, Shield, Gift } from "lucide-react";
 import { ProductCard } from "../components/ProductCard";
-import { products, categories } from "../data/products";
+import { useProducts, useCategories } from "../hooks/useProducts";
 
 export function Home() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
-  const featured = products.slice(0, 4);
-  const bestsellers = products.filter((p) => p.badge === "Bestseller" || p.rating >= 4.8);
+  const { products, loading: productsLoading } = useProducts();
+  const { categories, loading: categoriesLoading } = useCategories();
+
+  const featured = products ? products.slice(0, 4) : [];
+  const bestsellers = products ? products.filter((p) => p.badge === "Bestseller" || p.rating >= 4.8) : [];
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();

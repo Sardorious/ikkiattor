@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { SlidersHorizontal, X, ChevronDown, ChevronUp } from "lucide-react";
 import { ProductCard } from "../components/ProductCard";
-import { products } from "../data/products";
+import { useProducts, useCategories } from "../hooks/useProducts";
 
 const allCategories = ["All", "Women", "Men", "Unisex"];
 const priceRanges = [
@@ -16,6 +16,9 @@ export function Shop() {
   const [searchParams] = useSearchParams();
   const defaultCategory = searchParams.get("category") || "All";
 
+  const { products, loading: productsLoading } = useProducts();
+  const { categories, loading: categoriesLoading } = useCategories();
+  
   const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState("featured");
@@ -23,6 +26,7 @@ export function Shop() {
   const [expandedSections, setExpandedSections] = useState({ category: true, price: true });
 
   const filtered = useMemo(() => {
+    if (!products) return [];
     let result = [...products];
 
     if (selectedCategory !== "All") {
@@ -51,7 +55,7 @@ export function Shop() {
     }
 
     return result;
-  }, [selectedCategory, selectedPrice, sortBy]);
+  }, [selectedCategory, selectedPrice, sortBy, products]);
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }));
@@ -75,7 +79,7 @@ export function Shop() {
         </button>
         {expandedSections.category && (
           <div className="mt-3 space-y-2">
-            {allCategories.map((cat) => (
+            {["All", ...categories.map(c => c.name)].map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}

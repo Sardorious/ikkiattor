@@ -6,6 +6,8 @@ import { ProductDetail } from "./pages/ProductDetail";
 import { Collections } from "./pages/Collections";
 import { About } from "./pages/About";
 import { Checkout } from "./pages/Checkout";
+import { AdminLogin } from "./pages/AdminLogin";
+import { AdminDashboard } from "./pages/AdminDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -18,6 +20,8 @@ export const router = createBrowserRouter([
       { path: "collections", Component: Collections },
       { path: "about", Component: About },
       { path: "checkout", Component: Checkout },
+      { path: "admin/login", Component: AdminLogin },
+      { path: "admin", Component: AdminDashboard },
     ],
   },
 ]);
