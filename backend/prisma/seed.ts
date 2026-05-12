@@ -95,7 +95,7 @@ const categories = [
 async function main() {
   console.log('Start seeding...');
 
-  // Create Admin
+  // 1. Create/Update Admin (Safe: Upsert ensures no duplicates)
   const hashedPassword = await bcrypt.hash('admin123', 10);
   await prisma.admin.upsert({
     where: { email: 'admin@ikkiattor.uz' },
@@ -105,8 +105,9 @@ async function main() {
       password: hashedPassword,
     },
   });
-  console.log('Admin created: admin@ikkiattor.uz / admin123');
+  console.log('Admin ready: admin@ikkiattor.uz');
   
+  // 2. Create/Update Categories (Safe: Upsert)
   for (const cat of categories) {
     await prisma.category.upsert({
       where: { name: cat.name },
@@ -114,14 +115,23 @@ async function main() {
       create: cat,
     });
   }
+  console.log('Categories synced.');
 
-  for (const p of products) {
-    await prisma.product.create({
-      data: { ...p, stock: 10 },
-    });
+  // 3. Create Products ONLY if database is empty
+  const productCount = await prisma.product.count();
+  if (productCount === 0) {
+    console.log('Database empty, seeding initial products...');
+    for (const p of products) {
+      await prisma.product.create({
+        data: { ...p, stock: 10 },
+      });
+    }
+    console.log(`${products.length} products added.`);
+  } else {
+    console.log('Products already exist. Skipping product seed to preserve your data.');
   }
 
-  console.log('Seeding finished.');
+  console.log('Seeding process finished.');
 }
 
 main()

@@ -9,7 +9,7 @@ services:
       - DATABASE_URL=file:/app/data/dev.db
       - JWT_SECRET=${JWT_SECRET:-ikkiattor-super-secret-key}
       - PORT=3001
-    command: sh -c "mkdir -p /app/data && npx prisma migrate deploy && npm run seed && npm start"
+    command: sh -c "mkdir -p /app/data && npx prisma migrate deploy && npm start"
     networks:
       - app-network
 
