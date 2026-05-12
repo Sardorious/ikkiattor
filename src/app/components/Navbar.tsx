@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ShoppingBag, Search, Menu, X, Heart, Languages } from "lucide-react";
 import { useCart } from "../context/CartContext";
