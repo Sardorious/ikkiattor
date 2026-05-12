@@ -10,7 +10,7 @@ dotenv.config();
 const prisma = new PrismaClient();
 const app = express();
 const PORT = process.env.PORT || 3001;
-const JWT_SECRET = process.env.JWT_SECRET || 'lumiere-super-secret-key';
+const JWT_SECRET = process.env.JWT_SECRET || 'ikkiattor-super-secret-key';
 
 app.use(cors());
 app.use(express.json());

@@ -179,7 +179,7 @@ export function Home() {
             className="text-[#888] mt-6 tracking-widest"
             style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem" }}
           >
-            — Jean-Paul Lumière, Founder
+            — Jean-Paul IkkiAttor, Founder
           </p>
         </div>
       </section>
@@ -313,13 +313,13 @@ export function Home() {
             className="text-[#c9a96e] tracking-[0.3em] uppercase mb-2"
             style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
           >
-            Why Lumière
+            Why IkkiAttor
           </p>
           <h2
             className="text-white"
             style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300 }}
           >
-            The Lumière Promise
+            The IkkiAttor Promise
           </h2>
         </div>
 

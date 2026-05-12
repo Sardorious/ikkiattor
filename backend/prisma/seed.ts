@@ -98,14 +98,14 @@ async function main() {
   // Create Admin
   const hashedPassword = await bcrypt.hash('admin123', 10);
   await prisma.admin.upsert({
-    where: { email: 'admin@lumiere.com' },
+    where: { email: 'admin@ikkiattor.uz' },
     update: {},
     create: {
-      email: 'admin@lumiere.com',
+      email: 'admin@ikkiattor.uz',
       password: hashedPassword,
     },
   });
-  console.log('Admin created: admin@lumiere.com / admin123');
+  console.log('Admin created: admin@ikkiattor.uz / admin123');
   
   for (const cat of categories) {
     await prisma.category.upsert({

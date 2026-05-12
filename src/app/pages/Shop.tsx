@@ -155,7 +155,7 @@ export function Shop() {
           className="text-[#c9a96e] tracking-[0.3em] uppercase mb-2"
           style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
         >
-          Lumière Parfums
+          IkkiAttor Parfums
         </p>
         <h1
           className="text-white"

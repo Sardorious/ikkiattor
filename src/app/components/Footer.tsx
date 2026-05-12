@@ -13,7 +13,7 @@ export function Footer() {
               className="text-[#c9a96e] tracking-[0.3em] uppercase"
               style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem" }}
             >
-              LUMIÈRE
+              IKKIATTOR
             </p>
             <p
               className="text-[#555] tracking-[0.6em] uppercase"
@@ -118,11 +118,11 @@ export function Footer() {
             <li className="flex items-center gap-3">
               <Mail size={14} className="text-[#c9a96e] flex-shrink-0" />
               <a
-                href="mailto:hello@lumiereparfums.com"
+                href="mailto:hello@ikkiattor.uz"
                 className="text-[#666] hover:text-[#c9a96e] transition-colors"
                 style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem" }}
               >
-                hello@lumiereparfums.com
+                hello@ikkiattor.uz
               </a>
             </li>
           </ul>
@@ -136,7 +136,7 @@ export function Footer() {
             className="text-[#444]"
             style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem" }}
           >
-            © 2026 Lumière Parfums. All rights reserved.
+            © 2026 IkkiAttor Parfums. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
             {["Privacy Policy", "Terms of Service", "Cookie Settings"].map((item) => (

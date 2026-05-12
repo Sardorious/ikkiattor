@@ -5,7 +5,7 @@ export function About() {
       <div className="relative h-96 overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1773527142304-58116364b8a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBwZXJmdW1lJTIwYm90dGxlJTIwZWxlZ2FudHxlbnwxfHx8fDE3NzgxNjkyMjR8MA&ixlib=rb-4.1.0&q=80&w=1080"
-          alt="About Lumière"
+          alt="About IkkiAttor"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-[#0a0a0a]/70" />
@@ -20,7 +20,7 @@ export function About() {
             className="text-white"
             style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "3rem", fontWeight: 300 }}
           >
-            The Lumière Legacy
+            The IkkiAttor Legacy
           </h1>
         </div>
       </div>
@@ -43,7 +43,7 @@ export function About() {
           className="text-[#777]"
           style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", letterSpacing: "0.2em" }}
         >
-          — Jean-Paul Lumière, Founder
+          — Jean-Paul IkkiAttor, Founder
         </p>
       </div>
 
@@ -54,12 +54,12 @@ export function About() {
             {
               year: "1985",
               title: "The Beginning",
-              text: "Jean-Paul Lumière opened his first atelier on the Rue de la Paix in Paris, with a vision to create fragrances that transcend the ordinary.",
+              text: "Jean-Paul IkkiAttor opened his first atelier on the Rue de la Paix in Paris, with a vision to create fragrances that transcend the ordinary.",
             },
             {
               year: "1998",
               title: "Global Recognition",
-              text: "After winning the prestigious Prix de la Parfumerie award, Lumière Parfums expanded to boutiques across London, New York, and Tokyo.",
+              text: "After winning the prestigious Prix de la Parfumerie award, IkkiAttor Parfums expanded to boutiques across London, New York, and Tokyo.",
             },
             {
               year: "2026",

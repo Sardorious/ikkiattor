@@ -45,7 +45,7 @@ export function AdminLogin() {
             className="text-[#c9a96e] tracking-[0.4em] uppercase mb-3"
             style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
           >
-            Lumière Parfums
+            IkkiAttor Parfums
           </p>
           <h1
             className="text-white"

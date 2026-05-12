@@ -29,7 +29,7 @@ export function Navbar() {
               className="text-[#c9a96e] tracking-[0.3em] uppercase"
               style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem", fontWeight: 400 }}
             >
-              LUMIÈRE
+              IKKIATTOR
             </span>
             <span
               className="text-[#8a8a8a] tracking-[0.6em] uppercase"
