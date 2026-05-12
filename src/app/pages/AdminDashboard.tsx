@@ -21,7 +21,7 @@ export function AdminDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/products");
+      const response = await fetch("/api/products");
       const data = await response.json();
       setProducts(data);
     } catch (err) {
@@ -35,7 +35,7 @@ export function AdminDashboard() {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/products/${id}`, {
+      const response = await fetch(`/api/products/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -198,8 +198,8 @@ function AdminProductModal({ product, onClose, onSuccess, token }: any) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const url = product
-      ? `http://localhost:3001/api/products/${product.id}`
-      : "http://localhost:3001/api/products";
+      ? `/api/products/${product.id}`
+      : "/api/products";
     const method = product ? "PUT" : "POST";
 
     try {

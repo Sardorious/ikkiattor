@@ -1,0 +1,28 @@
+services:
+  backend:
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/ikkiattor-backend:latest
+    container_name: ikkiattor-backend
+    restart: always
+    volumes:
+      - ./backend/prisma:/app/prisma
+    environment:
+      - DATABASE_URL=file:./dev.db
+      - JWT_SECRET=ikkiattor-super-secret-key
+      - PORT=3001
+    networks:
+      - app-network
+
+  frontend:
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/ikkiattor-frontend:latest
+    container_name: ikkiattor-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

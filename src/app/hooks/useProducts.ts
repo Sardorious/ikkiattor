@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Product } from '../context/CartContext';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = '/api';
 
 export function useProducts() {
   const [products, setProducts] = useState<Product[]>([]);
