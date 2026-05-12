@@ -7,8 +7,9 @@ services:
       - ./backend/prisma:/app/prisma
     environment:
       - DATABASE_URL=file:./dev.db
-      - JWT_SECRET=ikkiattor-super-secret-key
+      - JWT_SECRET=${JWT_SECRET:-ikkiattor-p@ssword123!-secret-key}
       - PORT=3001
+    command: sh -c "npx prisma migrate deploy && npm start"
     networks:
       - app-network
 

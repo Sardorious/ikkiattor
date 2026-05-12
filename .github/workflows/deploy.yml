@@ -73,6 +73,7 @@ jobs:
             cd ~/ikkiattor
             # Create .env file for docker-compose
             echo "GITHUB_REPOSITORY_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" > .env
+            echo "JWT_SECRET=${{ secrets.JWT_SECRET }}" >> .env
             
             # Login to registry
             echo ${{ secrets.GH_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
@@ -80,6 +81,7 @@ jobs:
             # Pull and Update
             docker-compose pull
             docker-compose up -d
+
 
 
 
