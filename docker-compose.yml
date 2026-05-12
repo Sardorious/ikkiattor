@@ -4,12 +4,12 @@ services:
     container_name: ikkiattor-backend
     restart: always
     volumes:
-      - ./backend/prisma:/app/prisma
+      - ikkiattor-db:/app/data
     environment:
-      - DATABASE_URL=file:./dev.db
-      - JWT_SECRET=${JWT_SECRET:-ikkiattor-p@ssword123!-secret-key}
+      - DATABASE_URL=file:/app/data/dev.db
+      - JWT_SECRET=${JWT_SECRET:-ikkiattor-super-secret-key}
       - PORT=3001
-    command: sh -c "npx prisma migrate deploy && npm start"
+    command: sh -c "mkdir -p /app/data && npx prisma migrate deploy && npm start"
     networks:
       - app-network
 
@@ -27,3 +27,6 @@ services:
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  ikkiattor-db:
