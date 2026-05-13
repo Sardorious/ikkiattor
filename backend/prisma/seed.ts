@@ -96,10 +96,12 @@ async function main() {
   console.log('Start seeding...');
 
   // 1. Create/Update Admin (Safe: Upsert ensures no duplicates)
-  const hashedPassword = await bcrypt.hash('admin123', 10);
+  const hashedPassword = await bcrypt.hash('admin@123', 10);
   await prisma.admin.upsert({
     where: { email: 'admin@ikkiattor.uz' },
-    update: {},
+    update: {
+      password: hashedPassword,
+    },
     create: {
       email: 'admin@ikkiattor.uz',
       password: hashedPassword,
