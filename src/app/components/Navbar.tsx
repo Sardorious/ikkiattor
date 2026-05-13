@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
-import { ShoppingBag, Search, Menu, X, Heart, Languages } from "lucide-react";
+import { ShoppingBag, Search, Menu, X, Languages, Sun, Moon } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useTheme } from "../context/ThemeContext";
 
 export function Navbar() {
   const { t, i18n } = useTranslation();
+  const { toggleTheme, isDark } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const { totalItems, setIsCartOpen } = useCart();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const navLinks = [
     { label: t("nav.home"), to: "/" },
@@ -18,28 +22,37 @@ export function Navbar() {
     { label: t("nav.about"), to: "/about" },
   ];
 
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/shop?q=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchOpen(false);
+      setSearchQuery("");
+    }
   };
 
+  const changeLanguage = (lng: string) => i18n.changeLanguage(lng);
   const isActive = (to: string) =>
     to === "/" ? location.pathname === "/" : location.pathname.startsWith(to);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-sm border-b border-[#c9a96e]/20">
+    <header
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-sm border-b"
+      style={{ background: "var(--ikki-navbar)", borderColor: "var(--ikki-border-gold)" }}
+    >
       <nav className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex flex-col items-start">
             <span
-              className="text-[#c9a96e] tracking-[0.3em] uppercase"
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem", fontWeight: 400 }}
+              className="tracking-[0.3em] uppercase"
+              style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem", fontWeight: 400, color: "var(--ikki-gold)" }}
             >
               IKKIATTOR
             </span>
             <span
-              className="text-[#8a8a8a] tracking-[0.6em] uppercase"
-              style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.6rem", fontWeight: 300 }}
+              className="tracking-[0.6em] uppercase"
+              style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.6rem", fontWeight: 300, color: "var(--ikki-text-dim)" }}
             >
               PARFUMS
             </span>
@@ -51,12 +64,13 @@ export function Navbar() {
               <li key={link.to}>
                 <Link
                   to={link.to}
-                  className={`tracking-widest uppercase transition-colors duration-200 ${
-                    isActive(link.to)
-                      ? "text-[#c9a96e]"
-                      : "text-[#d4d4d4] hover:text-[#c9a96e]"
-                  }`}
-                  style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", fontWeight: 400 }}
+                  className="tracking-widest uppercase transition-colors duration-200"
+                  style={{
+                    fontFamily: "'Jost', sans-serif",
+                    fontSize: "0.75rem",
+                    fontWeight: 400,
+                    color: isActive(link.to) ? "var(--ikki-gold)" : "var(--ikki-text-sub)",
+                  }}
                 >
                   {link.label}
                 </Link>
@@ -68,19 +82,26 @@ export function Navbar() {
           <div className="flex items-center gap-4">
             {/* Language Switcher */}
             <div className="relative group px-2">
-              <button className="text-[#d4d4d4] hover:text-[#c9a96e] flex items-center gap-1 transition-colors">
+              <button
+                className="flex items-center gap-1 transition-colors"
+                style={{ color: "var(--ikki-text-sub)" }}
+              >
                 <Languages size={18} />
                 <span className="text-[0.65rem] font-medium uppercase tracking-widest">{i18n.language}</span>
               </button>
-              <div className="absolute right-0 mt-2 w-20 bg-[#0d0d0d] border border-[#c9a96e]/20 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl">
+              <div
+                className="absolute right-0 mt-2 w-20 border opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 shadow-xl"
+                style={{ background: "var(--ikki-bg2)", borderColor: "var(--ikki-border-gold)" }}
+              >
                 {["uz", "ru", "en"].map((lng) => (
                   <button
                     key={lng}
                     onClick={() => changeLanguage(lng)}
-                    className={`w-full text-left px-4 py-2 text-[0.7rem] uppercase tracking-widest hover:bg-[#c9a96e]/10 transition-colors ${
-                      i18n.language === lng ? "text-[#c9a96e]" : "text-[#888]"
-                    }`}
-                    style={{ fontFamily: "'Jost', sans-serif" }}
+                    className="w-full text-left px-4 py-2 text-[0.7rem] uppercase tracking-widest transition-colors"
+                    style={{
+                      fontFamily: "'Jost', sans-serif",
+                      color: i18n.language === lng ? "var(--ikki-gold)" : "var(--ikki-text-muted)",
+                    }}
                   >
                     {lng}
                   </button>
@@ -88,30 +109,46 @@ export function Navbar() {
               </div>
             </div>
 
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="transition-colors"
+              style={{ color: "var(--ikki-text-sub)" }}
+              title={isDark ? t("common.theme.light") : t("common.theme.dark")}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+
+            {/* Search */}
             <button
               onClick={() => setSearchOpen(!searchOpen)}
-              className="text-[#d4d4d4] hover:text-[#c9a96e] transition-colors"
+              className="transition-colors"
+              style={{ color: "var(--ikki-text-sub)" }}
             >
               <Search size={18} />
             </button>
-            <button className="text-[#d4d4d4] hover:text-[#c9a96e] transition-colors hidden md:block">
-              <Heart size={18} />
-            </button>
+
+            {/* Cart */}
             <button
               onClick={() => setIsCartOpen(true)}
-              className="relative text-[#d4d4d4] hover:text-[#c9a96e] transition-colors"
+              className="relative transition-colors"
+              style={{ color: "var(--ikki-text-sub)" }}
             >
               <ShoppingBag size={18} />
               {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[#c9a96e] text-[#0a0a0a] rounded-full w-4 h-4 flex items-center justify-center"
-                  style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.6rem", fontWeight: 600 }}
+                <span
+                  className="absolute -top-2 -right-2 rounded-full w-4 h-4 flex items-center justify-center"
+                  style={{ background: "var(--ikki-gold)", color: "var(--ikki-bg)", fontFamily: "'Jost', sans-serif", fontSize: "0.6rem", fontWeight: 600 }}
                 >
                   {totalItems}
                 </span>
               )}
             </button>
+
+            {/* Mobile Menu */}
             <button
-              className="md:hidden text-[#d4d4d4] hover:text-[#c9a96e] transition-colors"
+              className="md:hidden transition-colors"
+              style={{ color: "var(--ikki-text-sub)" }}
               onClick={() => setMenuOpen(!menuOpen)}
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -121,30 +158,39 @@ export function Navbar() {
 
         {/* Search Bar */}
         {searchOpen && (
-          <div className="mt-4 pb-2">
+          <form onSubmit={handleSearch} className="mt-4 pb-2">
             <input
               type="text"
-              placeholder="Search fragrances..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t("nav.search")}
               autoFocus
-              className="w-full bg-transparent border-b border-[#c9a96e]/40 text-[#d4d4d4] placeholder-[#666] outline-none py-2 px-1"
-              style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.9rem" }}
+              className="w-full bg-transparent border-b outline-none py-2 px-1"
+              style={{
+                borderColor: "var(--ikki-border-gold)",
+                color: "var(--ikki-text-sub)",
+                fontFamily: "'Jost', sans-serif",
+                fontSize: "0.9rem",
+              }}
             />
-          </div>
+          </form>
         )}
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="md:hidden pt-4 pb-2 border-t border-[#c9a96e]/10 mt-4">
+          <div className="md:hidden pt-4 pb-2 border-t mt-4" style={{ borderColor: "var(--ikki-border-gold)" }}>
             <ul className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
                     onClick={() => setMenuOpen(false)}
-                    className={`tracking-widest uppercase transition-colors ${
-                      isActive(link.to) ? "text-[#c9a96e]" : "text-[#d4d4d4]"
-                    }`}
-                    style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem" }}
+                    className="tracking-widest uppercase transition-colors"
+                    style={{
+                      fontFamily: "'Jost', sans-serif",
+                      fontSize: "0.8rem",
+                      color: isActive(link.to) ? "var(--ikki-gold)" : "var(--ikki-text-sub)",
+                    }}
                   >
                     {link.label}
                   </Link>

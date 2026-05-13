@@ -7,9 +7,9 @@ services:
       - ikkiattor-db:/app/data
     environment:
       - DATABASE_URL=file:/app/data/dev.db
-      - JWT_SECRET=${JWT_SECRET:-ikkiattor-super-secret-key}
+      - JWT_SECRET=${JWT_SECRET}
       - PORT=3001
-    command: sh -c "mkdir -p /app/data && npx prisma migrate deploy && npx ts-node server.ts"
+    command: sh -c "mkdir -p /app/data && npx prisma migrate deploy && npm start"
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3001/api/products || exit 1"]
       interval: 10s

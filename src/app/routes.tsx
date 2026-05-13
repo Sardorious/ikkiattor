@@ -8,6 +8,7 @@ import { About } from "./pages/About";
 import { Checkout } from "./pages/Checkout";
 import { AdminLogin } from "./pages/AdminLogin";
 import { AdminDashboard } from "./pages/AdminDashboard";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +22,12 @@ export const router = createBrowserRouter([
       { path: "about", Component: About },
       { path: "checkout", Component: Checkout },
       { path: "admin/login", Component: AdminLogin },
-      { path: "admin", Component: AdminDashboard },
+      {
+        Component: ProtectedRoute,
+        children: [
+          { path: "admin", Component: AdminDashboard },
+        ],
+      },
     ],
   },
 ]);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { ArrowRight, ChevronDown, Star, Truck, RotateCcw, Shield, Gift } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { ArrowRight, ChevronDown, Star, Truck, RotateCcw, Shield, Gift } from "lucide-react";
 import { ProductCard } from "../components/ProductCard";
 import { useProducts, useCategories } from "../hooks/useProducts";
 
@@ -9,106 +9,68 @@ export function Home() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
-
-  const { products, loading: productsLoading } = useProducts();
-  const { categories, loading: categoriesLoading } = useCategories();
+  const { products } = useProducts();
+  const { categories } = useCategories();
 
   const featured = products ? products.slice(0, 4) : [];
   const bestsellers = products ? products.filter((p) => p.badge === "Bestseller" || p.rating >= 4.8) : [];
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) {
-      setSubscribed(true);
-    }
+    if (email) setSubscribed(true);
   };
 
+  const trustBadges = [
+    { icon: Truck, label: t("trust.shipping"), sub: t("trust.shippingSub") },
+    { icon: RotateCcw, label: t("trust.returns"), sub: t("trust.returnsSub") },
+    { icon: Shield, label: t("trust.authentic"), sub: t("trust.authenticSub") },
+    { icon: Gift, label: t("trust.gift"), sub: t("trust.giftSub") },
+  ];
+
+  const promiseItems = [
+    { number: "01", title: t("promise.item1Title"), text: t("promise.item1Text") },
+    { number: "02", title: t("promise.item2Title"), text: t("promise.item2Text") },
+    { number: "03", title: t("promise.item3Title"), text: t("promise.item3Text") },
+  ];
+
   return (
-    <div className="bg-[#0a0a0a] min-h-screen">
+    <div className="min-h-screen" style={{ background: "var(--ikki-bg)" }}>
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1760862652442-e8ff7ebdd2f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJmdW1lJTIwc3RvcmUlMjBsdXh1cnklMjBpbnRlcmlvcnxlbnwxfHx8fDE3NzgzMzc3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080)`,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-[#0a0a0a]/30" />
-
+        <div className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(https://images.unsplash.com/photo-1760862652442-e8ff7ebdd2f8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJmdW1lJTIwc3RvcmUlMjBsdXh1cnklMjBpbnRlcmlvcnxlbnwxfHx8fDE3NzgzMzc3ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080)` }} />
+        <div className="absolute inset-0" style={{ background: "linear-gradient(to right, var(--ikki-bg) 0%, rgba(10,10,10,0.8) 60%, rgba(10,10,10,0.3) 100%)" }} />
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-32">
           <div className="max-w-2xl">
-            <p
-              className="text-[#c9a96e] tracking-[0.4em] uppercase mb-4"
-              style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem" }}
-            >
-              {t("hero.subtitle")}
-            </p>
-            <h1
-              className="text-white mb-6"
-              style={{
-                fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "clamp(3rem, 7vw, 5.5rem)",
-                fontWeight: 300,
-                lineHeight: 1.1,
-              }}
-            >
-              {t("hero.title")}
-            </h1>
-            <p
-              className="text-[#aaa] mb-10 max-w-md"
-              style={{ fontFamily: "'Jost', sans-serif", fontSize: "1rem", lineHeight: "1.8", fontWeight: 300 }}
-            >
-              Discover our curated collection of rare and exquisite fragrances, crafted by the world's finest perfumers.
-            </p>
+            <p className="tracking-[0.4em] uppercase mb-4" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", color: "var(--ikki-gold)" }}>{t("hero.subtitle")}</p>
+            <h1 className="mb-6" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(3rem, 7vw, 5.5rem)", fontWeight: 300, lineHeight: 1.1, color: "var(--ikki-text)" }}>{t("hero.title")}</h1>
+            <p className="mb-10 max-w-md" style={{ fontFamily: "'Jost', sans-serif", fontSize: "1rem", lineHeight: "1.8", fontWeight: 300, color: "var(--ikki-text-body)" }}>{t("hero.description")}</p>
             <div className="flex flex-wrap gap-4">
-              <Link
-                to="/shop"
-                className="bg-[#c9a96e] text-[#0a0a0a] px-10 py-4 tracking-[0.2em] uppercase hover:bg-[#b8956a] transition-colors flex items-center gap-2"
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", fontWeight: 500 }}
-              >
+              <Link to="/shop" className="px-10 py-4 tracking-[0.2em] uppercase transition-colors flex items-center gap-2"
+                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", fontWeight: 500, background: "var(--ikki-gold)", color: "var(--ikki-bg)" }}>
                 {t("hero.cta")} <ArrowRight size={14} />
               </Link>
-              <Link
-                to="/collections"
-                className="border border-[#c9a96e]/50 text-[#c9a96e] px-10 py-4 tracking-[0.2em] uppercase hover:bg-[#c9a96e]/10 transition-colors"
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", fontWeight: 400 }}
-              >
-                Explore
+              <Link to="/collections" className="border px-10 py-4 tracking-[0.2em] uppercase transition-colors"
+                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", fontWeight: 400, borderColor: "var(--ikki-border-gold)", color: "var(--ikki-gold)" }}>
+                {t("hero.explore")}
               </Link>
             </div>
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#666] animate-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce" style={{ color: "var(--ikki-text-dim)" }}>
           <ChevronDown size={20} />
         </div>
       </section>
 
       {/* Trust Badges */}
-      <section className="border-y border-[#c9a96e]/15 bg-[#0d0d0d]">
+      <section className="border-y" style={{ background: "var(--ikki-bg2)", borderColor: "var(--ikki-border-gold)" }}>
         <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { icon: Truck, label: "Free Shipping", sub: "On orders over $150" },
-            { icon: RotateCcw, label: "Easy Returns", sub: "30-day return policy" },
-            { icon: Shield, label: "Authentic", sub: "100% genuine products" },
-            { icon: Gift, label: "Gift Wrapping", sub: "Complimentary service" },
-          ].map(({ icon: Icon, label, sub }) => (
+          {trustBadges.map(({ icon: Icon, label, sub }) => (
             <div key={label} className="flex items-center gap-3">
-              <Icon size={20} className="text-[#c9a96e] flex-shrink-0" />
+              <Icon size={20} className="flex-shrink-0" style={{ color: "var(--ikki-gold)" }} />
               <div>
-                <p
-                  className="text-[#e0e0e0]"
-                  style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", fontWeight: 500 }}
-                >
-                  {label}
-                </p>
-                <p
-                  className="text-[#666]"
-                  style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-                >
-                  {sub}
-                </p>
+                <p style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", fontWeight: 500, color: "var(--ikki-text-sub)" }}>{label}</p>
+                <p style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-text-dim)" }}>{sub}</p>
               </div>
             </div>
           ))}
@@ -119,187 +81,78 @@ export function Home() {
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p
-              className="text-[#c9a96e] tracking-[0.3em] uppercase mb-2"
-              style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-            >
-              Curated For You
-            </p>
-            <h2
-              className="text-white"
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300 }}
-            >
-              Featured Fragrances
-            </h2>
+            <p className="tracking-[0.3em] uppercase mb-2" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-gold)" }}>{t("featured.eyebrow")}</p>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300, color: "var(--ikki-text)" }}>{t("featured.title")}</h2>
           </div>
-          <Link
-            to="/shop"
-            className="hidden md:flex items-center gap-2 text-[#c9a96e] hover:gap-3 transition-all"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem" }}
-          >
-            View All <ArrowRight size={14} />
+          <Link to="/shop" className="hidden md:flex items-center gap-2 hover:gap-3 transition-all"
+            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", color: "var(--ikki-gold)" }}>
+            {t("featured.viewAll")} <ArrowRight size={14} />
           </Link>
         </div>
-
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {featured.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+          {featured.map((product) => <ProductCard key={product.id} product={product} />)}
         </div>
       </section>
 
-      {/* Banner */}
+      {/* Banner Quote */}
       <section className="relative overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{
-            backgroundImage: `url(https://images.unsplash.com/photo-1659450013573-b2d6b39f916a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJmdW1lJTIwZnJhZ3JhbmNlJTIwY29sbGVjdGlvbnxlbnwxfHx8fDE3NzgzMzc3Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080)`,
-          }}
-        />
+        <div className="absolute inset-0 bg-cover bg-center bg-fixed"
+          style={{ backgroundImage: `url(https://images.unsplash.com/photo-1659450013573-b2d6b39f916a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJmdW1lJTIwZnJhZ3JhbmNlJTIwY29sbGVjdGlvbnxlbnwxfHx8fDE3NzgzMzc3Nzl8MA&ixlib=rb-4.1.0&q=80&w=1080)` }} />
         <div className="absolute inset-0 bg-[#0a0a0a]/75" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-28 text-center">
-          <p
-            className="text-[#c9a96e] tracking-[0.5em] uppercase mb-4"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-          >
-            Our Philosophy
-          </p>
-          <blockquote
-            className="text-white max-w-3xl mx-auto"
-            style={{
-              fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "clamp(1.5rem, 4vw, 2.8rem)",
-              fontWeight: 300,
-              lineHeight: 1.4,
-              fontStyle: "italic",
-            }}
-          >
-            "A fragrance is an invisible fashion. You can forget a face, but you can never forget a scent."
+          <p className="tracking-[0.5em] uppercase mb-4" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-gold)" }}>{t("philosophy.eyebrow")}</p>
+          <blockquote style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(1.5rem, 4vw, 2.8rem)", fontWeight: 300, lineHeight: 1.4, fontStyle: "italic", color: "#ffffff", maxWidth: "48rem", margin: "0 auto" }}>
+            {t("philosophy.quote")}
           </blockquote>
-          <p
-            className="text-[#888] mt-6 tracking-widest"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem" }}
-          >
-            — Jean-Paul IkkiAttor, Founder
-          </p>
+          <p className="mt-6 tracking-widest" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", color: "var(--ikki-text-muted)" }}>{t("philosophy.author")}</p>
         </div>
       </section>
 
       {/* Categories */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-12">
-          <p
-            className="text-[#c9a96e] tracking-[0.3em] uppercase mb-2"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-          >
-            Browse by Category
-          </p>
-          <h2
-            className="text-white"
-            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300 }}
-          >
-            Our Collections
-          </h2>
+          <p className="tracking-[0.3em] uppercase mb-2" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-gold)" }}>{t("categories.eyebrow")}</p>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300, color: "var(--ikki-text)" }}>{t("categories.title")}</h2>
         </div>
-
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {categories.map((cat, i) => (
-            <Link
-              key={cat.name}
-              to={`/shop?category=${cat.name}`}
-              className="group relative overflow-hidden bg-[#111] aspect-square flex flex-col items-center justify-center text-center p-6 border border-[#1a1a1a] hover:border-[#c9a96e]/40 transition-all"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#c9a96e]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div
-                className="text-[#c9a96e] mb-2"
-                style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "3rem", fontWeight: 300, lineHeight: 1 }}
-              >
+            <Link key={cat.name} to={`/shop?category=${cat.name}`}
+              className="group relative overflow-hidden aspect-square flex flex-col items-center justify-center text-center p-6 border transition-all"
+              style={{ background: "var(--ikki-bg3)", borderColor: "var(--ikki-border)" }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: "var(--ikki-card-hover)" }} />
+              <div className="mb-2" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "3rem", fontWeight: 300, lineHeight: 1, color: "var(--ikki-gold)" }}>
                 {["♀", "♂", "⚥", "◈"][i]}
               </div>
-              <h3
-                className="text-white mb-1 group-hover:text-[#c9a96e] transition-colors"
-                style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.3rem" }}
-              >
-                {cat.name}
-              </h3>
-              <p
-                className="text-[#666] mb-3"
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-              >
-                {cat.description}
-              </p>
-              <p
-                className="text-[#c9a96e]/70"
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em" }}
-              >
-                {cat.count} Products
-              </p>
+              <h3 className="mb-1 group-hover:transition-colors" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.3rem", color: "var(--ikki-text)" }}>{cat.name}</h3>
+              <p className="mb-3" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-text-dim)" }}>{cat.description}</p>
+              <p style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", letterSpacing: "0.1em", color: "var(--ikki-gold)", opacity: 0.7 }}>{cat.count} {t("categories.products")}</p>
             </Link>
           ))}
         </div>
       </section>
 
       {/* Bestsellers */}
-      <section className="bg-[#0d0d0d] py-20">
+      <section className="py-20" style={{ background: "var(--ikki-bg2)" }}>
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
-            <p
-              className="text-[#c9a96e] tracking-[0.3em] uppercase mb-2"
-              style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-            >
-              Most Loved
-            </p>
-            <h2
-              className="text-white"
-              style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300 }}
-            >
-              Bestsellers
-            </h2>
+            <p className="tracking-[0.3em] uppercase mb-2" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-gold)" }}>{t("bestsellers.eyebrow")}</p>
+            <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300, color: "var(--ikki-text)" }}>{t("bestsellers.title")}</h2>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {bestsellers.map((product) => (
-              <Link key={product.id} to={`/product/${product.id}`} className="group flex gap-4 bg-[#111] p-4 border border-[#1a1a1a] hover:border-[#c9a96e]/30 transition-all">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-24 h-28 object-cover flex-shrink-0"
-                />
+              <Link key={product.id} to={`/product/${product.id}`} className="group flex gap-4 p-4 border transition-all"
+                style={{ background: "var(--ikki-bg3)", borderColor: "var(--ikki-border)" }}>
+                <img src={product.image} alt={product.name} className="w-24 h-28 object-cover flex-shrink-0" />
                 <div className="flex flex-col justify-center">
-                  <p
-                    className="text-[#666] tracking-widest uppercase mb-1"
-                    style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.6rem" }}
-                  >
-                    {product.brand}
-                  </p>
-                  <h4
-                    className="text-[#e8e8e8] mb-1 group-hover:text-[#c9a96e] transition-colors"
-                    style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.15rem" }}
-                  >
-                    {product.name}
-                  </h4>
+                  <p className="tracking-widest uppercase mb-1" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.6rem", color: "var(--ikki-text-dim)" }}>{product.brand}</p>
+                  <h4 className="mb-1 transition-colors" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.15rem", color: "var(--ikki-text-sub)" }}>{product.name}</h4>
                   <div className="flex items-center gap-1 mb-2">
                     {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        size={10}
-                        className={i < Math.floor(product.rating) ? "text-[#c9a96e]" : "text-[#333]"}
-                        fill={i < Math.floor(product.rating) ? "currentColor" : "none"}
-                      />
+                      <Star key={i} size={10} fill={i < Math.floor(product.rating) ? "var(--ikki-gold)" : "none"} style={{ color: i < Math.floor(product.rating) ? "var(--ikki-gold)" : "var(--ikki-border)" }} />
                     ))}
-                    <span
-                      className="text-[#666] ml-1"
-                      style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-                    >
-                      {product.rating} ({product.reviews})
-                    </span>
+                    <span className="ml-1" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-text-dim)" }}>{product.rating}</span>
                   </div>
-                  <span
-                    className="text-[#c9a96e]"
-                    style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.95rem", fontWeight: 500 }}
-                  >
-                    ${product.price}
-                  </span>
+                  <span style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.95rem", fontWeight: 500, color: "var(--ikki-gold)" }}>${product.price}</span>
                 </div>
               </Link>
             ))}
@@ -307,61 +160,19 @@ export function Home() {
         </div>
       </section>
 
-      {/* Why Us */}
+      {/* The Promise */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="text-center mb-14">
-          <p
-            className="text-[#c9a96e] tracking-[0.3em] uppercase mb-2"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-          >
-            Why IkkiAttor
-          </p>
-          <h2
-            className="text-white"
-            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300 }}
-          >
-            The IkkiAttor Promise
-          </h2>
+          <p className="tracking-[0.3em] uppercase mb-2" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-gold)" }}>{t("promise.eyebrow")}</p>
+          <h2 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300, color: "var(--ikki-text)" }}>{t("promise.title")}</h2>
         </div>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {[
-            {
-              number: "01",
-              title: "Rare Ingredients",
-              text: "We source only the finest ingredients from around the world—Bulgarian roses, Haitian vetiver, and precious oud from the Middle East.",
-            },
-            {
-              number: "02",
-              title: "Master Perfumers",
-              text: "Each fragrance is crafted by award-winning perfumers with decades of experience, balancing artistry with chemistry.",
-            },
-            {
-              number: "03",
-              title: "Sustainable Luxury",
-              text: "Our packaging uses recycled materials, and we partner with sustainable farms to ensure ethical sourcing of all ingredients.",
-            },
-          ].map((item) => (
-            <div key={item.number} className="relative pl-8 border-l border-[#c9a96e]/20">
-              <span
-                className="absolute -left-px top-0 text-[#c9a96e]/20"
-                style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "3rem", fontWeight: 300, lineHeight: 1 }}
-              >
-                {item.number}
-              </span>
+          {promiseItems.map((item) => (
+            <div key={item.number} className="relative pl-8 border-l" style={{ borderColor: "var(--ikki-border-gold)" }}>
+              <span className="absolute -left-px top-0" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "3rem", fontWeight: 300, lineHeight: 1, color: "var(--ikki-border-gold)" }}>{item.number}</span>
               <div className="pt-8">
-                <h3
-                  className="text-white mb-3"
-                  style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem" }}
-                >
-                  {item.title}
-                </h3>
-                <p
-                  className="text-[#666] leading-relaxed"
-                  style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", lineHeight: "1.8" }}
-                >
-                  {item.text}
-                </p>
+                <h3 className="mb-3" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: "var(--ikki-text)" }}>{item.title}</h3>
+                <p className="leading-relaxed" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", lineHeight: "1.8", color: "var(--ikki-text-dim)" }}>{item.text}</p>
               </div>
             </div>
           ))}
@@ -369,51 +180,21 @@ export function Home() {
       </section>
 
       {/* Newsletter */}
-      <section className="bg-[#0d0d0d] border-y border-[#c9a96e]/15">
+      <section className="border-y" style={{ background: "var(--ikki-bg2)", borderColor: "var(--ikki-border-gold)" }}>
         <div className="max-w-2xl mx-auto px-6 py-20 text-center">
-          <p
-            className="text-[#c9a96e] tracking-[0.4em] uppercase mb-3"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-          >
-            Join the Inner Circle
-          </p>
-          <h2
-            className="text-white mb-4"
-            style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.2rem", fontWeight: 300 }}
-          >
-            Receive Exclusive Offers
-          </h2>
-          <p
-            className="text-[#666] mb-8"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", lineHeight: "1.8" }}
-          >
-            Subscribe to our newsletter and receive 10% off your first order, plus early access to new collections and exclusive events.
-          </p>
-
+          <p className="tracking-[0.4em] uppercase mb-3" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-gold)" }}>{t("newsletter.eyebrow")}</p>
+          <h2 className="mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.2rem", fontWeight: 300, color: "var(--ikki-text)" }}>{t("newsletter.title")}</h2>
+          <p className="mb-8" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", lineHeight: "1.8", color: "var(--ikki-text-dim)" }}>{t("newsletter.desc")}</p>
           {subscribed ? (
-            <p
-              className="text-[#c9a96e] tracking-widest"
-              style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem" }}
-            >
-              ✦ Thank you for subscribing! Your discount code is on its way.
-            </p>
+            <p className="tracking-widest" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", color: "var(--ikki-gold)" }}>{t("newsletter.success")}</p>
           ) : (
             <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                required
-                className="flex-1 bg-[#111] border border-[#333] text-white placeholder-[#555] px-4 py-3 outline-none focus:border-[#c9a96e]/50 transition-colors"
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem" }}
-              />
-              <button
-                type="submit"
-                className="bg-[#c9a96e] text-[#0a0a0a] px-8 py-3 tracking-[0.2em] uppercase hover:bg-[#b8956a] transition-colors whitespace-nowrap"
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", fontWeight: 500 }}
-              >
-                Subscribe
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t("newsletter.placeholder")} required
+                className="flex-1 border px-4 py-3 outline-none transition-colors"
+                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", background: "var(--ikki-input-bg)", borderColor: "var(--ikki-border)", color: "var(--ikki-text)" }} />
+              <button type="submit" className="px-8 py-3 tracking-[0.2em] uppercase transition-colors whitespace-nowrap"
+                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", fontWeight: 500, background: "var(--ikki-gold)", color: "var(--ikki-bg)" }}>
+                {t("newsletter.subscribe")}
               </button>
             </form>
           )}

@@ -179,3 +179,53 @@
     line-height: 1.5;
   }
 }
+
+/* ===== IkkiAttor App Theme Variables ===== */
+:root, [data-theme="dark"] {
+  --ikki-bg:          #0a0a0a;
+  --ikki-bg2:         #0d0d0d;
+  --ikki-bg3:         #111111;
+  --ikki-border:      #1a1a1a;
+  --ikki-border-gold: rgba(201,169,110,0.20);
+  --ikki-gold:        #c9a96e;
+  --ikki-gold-hover:  #b8956a;
+  --ikki-text:        #ffffff;
+  --ikki-text-muted:  #888888;
+  --ikki-text-dim:    #666666;
+  --ikki-text-faint:  #444444;
+  --ikki-text-body:   #aaaaaa;
+  --ikki-text-sub:    #d4d4d4;
+  --ikki-input-bg:    #111111;
+  --ikki-navbar:      rgba(10,10,10,0.95);
+  --ikki-footer:      #070707;
+  --ikki-overlay:     rgba(10,10,10,0.75);
+  --ikki-card-hover:  rgba(201,169,110,0.05);
+  --ikki-shadow:      0 25px 50px rgba(0,0,0,0.5);
+}
+
+[data-theme="light"] {
+  --ikki-bg:          #f8f5f0;
+  --ikki-bg2:         #f0ebe3;
+  --ikki-bg3:         #ffffff;
+  --ikki-border:      #e8e0d5;
+  --ikki-border-gold: rgba(139,90,43,0.25);
+  --ikki-gold:        #8b5a2b;
+  --ikki-gold-hover:  #7a4f25;
+  --ikki-text:        #1a1008;
+  --ikki-text-muted:  #5a4a3a;
+  --ikki-text-dim:    #7a6a5a;
+  --ikki-text-faint:  #9a8a7a;
+  --ikki-text-body:   #3a2a1a;
+  --ikki-text-sub:    #2a1a0a;
+  --ikki-input-bg:    #ffffff;
+  --ikki-navbar:      rgba(248,245,240,0.97);
+  --ikki-footer:      #ede8e0;
+  --ikki-overlay:     rgba(248,245,240,0.80);
+  --ikki-card-hover:  rgba(139,90,43,0.06);
+  --ikki-shadow:      0 25px 50px rgba(139,90,43,0.15);
+}
+
+/* Smooth theme transitions */
+*, *::before, *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}

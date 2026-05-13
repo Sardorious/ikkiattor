@@ -5,77 +5,83 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const resources = {
   en: {
     translation: {
-      nav: {
-        home: "Home",
-        shop: "Shop",
-        collections: "Collections",
-        about: "About",
-        search: "Search fragrances...",
-        cart: "Bag"
+      nav: { home: "Home", shop: "Shop", collections: "Collections", about: "About", search: "Search fragrances...", cart: "Bag" },
+      hero: { subtitle: "Luxury Fragrance House", title: "Essence of Elegance", cta: "Discover Collection", explore: "Explore", description: "Discover our curated collection of rare and exquisite fragrances, crafted by the world's finest perfumers." },
+      trust: { shipping: "Free Shipping", shippingSub: "On orders over $150", returns: "Easy Returns", returnsSub: "30-day return policy", authentic: "Authentic", authenticSub: "100% genuine products", gift: "Gift Wrapping", giftSub: "Complimentary service" },
+      featured: { eyebrow: "Curated For You", title: "Featured Fragrances", viewAll: "View All" },
+      philosophy: { eyebrow: "Our Philosophy", quote: "\"A fragrance is an invisible fashion. You can forget a face, but you can never forget a scent.\"", author: "— Jean-Paul IkkiAttor, Founder" },
+      categories: { eyebrow: "Browse by Category", title: "Our Collections", products: "Products" },
+      bestsellers: { eyebrow: "Most Loved", title: "Bestsellers" },
+      promise: {
+        eyebrow: "Why IkkiAttor", title: "The IkkiAttor Promise",
+        item1Title: "Rare Ingredients", item1Text: "We source only the finest ingredients from around the world—Bulgarian roses, Haitian vetiver, and precious oud from the Middle East.",
+        item2Title: "Master Perfumers", item2Text: "Each fragrance is crafted by award-winning perfumers with decades of experience, balancing artistry with chemistry.",
+        item3Title: "Sustainable Luxury", item3Text: "Our packaging uses recycled materials, and we partner with sustainable farms to ensure ethical sourcing of all ingredients.",
       },
-      hero: {
-        subtitle: "Luxury Fragrance House",
-        title: "Essence of Elegance",
-        cta: "Discover Collection"
-      },
-      common: {
-        admin: "Admin",
-        logout: "Logout",
-        save: "Save",
-        cancel: "Cancel",
-        delete: "Delete",
-        edit: "Edit"
-      }
+      newsletter: { eyebrow: "Join the Inner Circle", title: "Receive Exclusive Offers", desc: "Subscribe to our newsletter and receive 10% off your first order, plus early access to new collections and exclusive events.", placeholder: "Your email address", subscribe: "Subscribe", success: "✦ Thank you for subscribing! Your discount code is on its way." },
+      shop: { eyebrow: "IkkiAttor Parfums", title: "All Fragrances", products: "products", sortLabel: "Sort:", filters: "Filters", clearFilters: "Clear Filters", noResults: "No fragrances found", noResultsSub: "Try adjusting your filters", category: "Category", price: "Price", featured: "Featured", topRated: "Top Rated", priceLow: "Price: Low to High", priceHigh: "Price: High to Low" },
+      product: { backToShop: "Shop", keyNotes: "Key Notes", qty: "Qty", addToCart: "Add to Cart", added: "Added to Cart!", notFound: "Fragrance not found", relatedEyebrow: "You May Also Like", relatedTitle: "Related Fragrances", description: "Description", fragranceNotes: "Fragrance Notes", shipping: "Shipping & Returns", shippingText: "We offer complimentary standard shipping on all orders over $150. Express shipping available. Returns accepted within 30 days of purchase for unused, sealed products.", reviews: "reviews" },
+      cart: { title: "Your Cart", empty: "Your cart is empty", explore: "Explore Fragrances", total: "Total", checkout: "Checkout", continueShopping: "Continue Shopping" },
+      checkout: { title: "Checkout", backToShop: "Back to Shop", shipping: "Shipping Information", payment: "Payment Details", firstName: "First Name", lastName: "Last Name", email: "Email", address: "Address", city: "City", zip: "ZIP Code", country: "Country", selectCountry: "Select country", cardNumber: "Card Number", expiry: "Expiry", cvv: "CVV", placeOrder: "Place Order", secure: "🔒 Secure, encrypted payment processing", emptyCart: "Your cart is empty", summary: "Order Summary", subtotal: "Subtotal", shippingFee: "Shipping", shippingFree: "Free", orderTotal: "Total", confirmed: "Order Confirmed", confirmedDesc: "Thank you for your order. Your luxurious fragrances will be carefully packaged and dispatched within 2 business days.", confirmedEmail: "Confirmation sent to", continueShopping: "Continue Shopping" },
+      collections: { eyebrow: "Curated Excellence", title: "Our Collections", desc: "Each collection tells a unique story through scent. Explore our curated worlds and find the fragrance that speaks to your soul.", explore: "Explore Collection", fragrances: "Fragrances" },
+      about: { eyebrow: "Our Story", title: "The IkkiAttor Legacy", since: "Since 1985", quote: "\"I wanted to create fragrances that were not merely worn, but experienced. Each bottle should carry a memory, a journey, an emotion.\"", founder: "— Jean-Paul IkkiAttor, Founder", year1: "1985", title1: "The Beginning", text1: "Jean-Paul IkkiAttor opened his first atelier on the Rue de la Paix in Paris, with a vision to create fragrances that transcend the ordinary.", year2: "1998", title2: "Global Recognition", text2: "After winning the prestigious Prix de la Parfumerie award, IkkiAttor Parfums expanded to boutiques across London, New York, and Tokyo.", year3: "2026", title3: "A New Chapter", text3: "We continue our founder's legacy while embracing sustainability and innovation, creating masterpieces for the next generation of fragrance lovers.", stat1: "Years of Craft", stat2: "Unique Fragrances", stat3: "Countries Worldwide", stat4: "Happy Customers" },
+      footer: { tagline: "Crafting extraordinary fragrances since 1985. Each bottle holds a story, each scent a memory waiting to unfold.", collectionsTitle: "Collections", helpTitle: "Help", contactTitle: "Contact", copyright: "© 2026 IkkiAttor Parfums. All rights reserved.", privacy: "Privacy Policy", terms: "Terms of Service", cookies: "Cookie Settings", women: "Women's Fragrances", men: "Men's Fragrances", unisex: "Unisex", luxury: "Luxury Edition", giftSets: "Gift Sets", sampleSets: "Sample Sets", trackOrder: "Track Order", shippingPolicy: "Shipping Policy", returnsEx: "Returns & Exchanges", fragranceGuide: "Fragrance Guide", faq: "FAQ", contactUs: "Contact Us" },
+      admin: { title: "Admin Access", email: "Email Address", password: "Password", login: "Login", authorizedOnly: "Authorized Personnel Only", authenticating: "Authenticating...", consoleLabel: "Management Console", inventoryTitle: "Product Inventory", addProduct: "Add Product", logout: "Logout", loading: "Loading inventory...", editFragrance: "Edit Fragrance", addFragrance: "Add New Fragrance", productName: "Product Name", brand: "Brand", category: "Category", price: "Price ($)", stock: "Stock Quantity", imageUrl: "Image URL", notes: "Notes (comma separated)", notesPlaceholder: "Rose, Oud, Vanilla...", save: "Save Fragrance", cancel: "Cancel", confirmDelete: "Are you sure you want to delete this product?" },
+      common: { admin: "Admin", logout: "Logout", save: "Save", cancel: "Cancel", delete: "Delete", edit: "Edit", theme: { dark: "Dark", light: "Light" } }
     }
   },
   ru: {
     translation: {
-      nav: {
-        home: "Главная",
-        shop: "Магазин",
-        collections: "Коллекции",
-        about: "О нас",
-        search: "Поиск ароматов...",
-        cart: "Корзина"
+      nav: { home: "Главная", shop: "Магазин", collections: "Коллекции", about: "О нас", search: "Поиск ароматов...", cart: "Корзина" },
+      hero: { subtitle: "Дом Люксовой Парфюмерии", title: "Суть Элегантности", cta: "Открыть Коллекцию", explore: "Смотреть", description: "Откройте для себя нашу коллекцию редких и изысканных ароматов, созданных лучшими парфюмерами мира." },
+      trust: { shipping: "Бесплатная Доставка", shippingSub: "При заказе от $150", returns: "Лёгкий Возврат", returnsSub: "30-дневная политика возврата", authentic: "Подлинность", authenticSub: "100% оригинальная продукция", gift: "Подарочная Упаковка", giftSub: "Бесплатная услуга" },
+      featured: { eyebrow: "Для Вас", title: "Избранные Ароматы", viewAll: "Смотреть все" },
+      philosophy: { eyebrow: "Наша Философия", quote: "«Аромат — это невидимая мода. Лицо можно забыть, но запах — никогда.»", author: "— Жан-Поль ИккиАттор, Основатель" },
+      categories: { eyebrow: "По Категориям", title: "Наши Коллекции", products: "Товаров" },
+      bestsellers: { eyebrow: "Любимые", title: "Бестселлеры" },
+      promise: {
+        eyebrow: "Почему IkkiAttor", title: "Обещание IkkiAttor",
+        item1Title: "Редкие Ингредиенты", item1Text: "Мы используем только лучшие ингредиенты — болгарскую розу, гаитянский ветивер и драгоценный уд с Ближнего Востока.",
+        item2Title: "Мастера Парфюмерии", item2Text: "Каждый аромат создаётся отмеченными наградами парфюмерами с многолетним опытом, сочетающими искусство и химию.",
+        item3Title: "Устойчивая Роскошь", item3Text: "Наша упаковка из переработанных материалов, а все ингредиенты закупаются у экологичных ферм.",
       },
-      hero: {
-        subtitle: "Дом Люксовой Парфюмерии",
-        title: "Сущность Элегантности",
-        cta: "Открыть Коллекцию"
-      },
-      common: {
-        admin: "Админ",
-        logout: "Выход",
-        save: "Сохранить",
-        cancel: "Отмена",
-        delete: "Удалить",
-        edit: "Изменить"
-      }
+      newsletter: { eyebrow: "Присоединяйтесь к Нам", title: "Эксклюзивные Предложения", desc: "Подпишитесь на рассылку и получите скидку 10% на первый заказ, а также ранний доступ к новым коллекциям.", placeholder: "Ваш email", subscribe: "Подписаться", success: "✦ Спасибо за подписку! Ваш код скидки уже в пути." },
+      shop: { eyebrow: "IkkiAttor Parfums", title: "Все Ароматы", products: "товаров", sortLabel: "Сортировка:", filters: "Фильтры", clearFilters: "Сбросить фильтры", noResults: "Ароматы не найдены", noResultsSub: "Попробуйте изменить фильтры", category: "Категория", price: "Цена", featured: "Популярные", topRated: "Лучший рейтинг", priceLow: "Цена: от низкой", priceHigh: "Цена: от высокой" },
+      product: { backToShop: "Магазин", keyNotes: "Основные Ноты", qty: "Кол-во", addToCart: "В корзину", added: "Добавлено!", notFound: "Аромат не найден", relatedEyebrow: "Вам также понравится", relatedTitle: "Похожие Ароматы", description: "Описание", fragranceNotes: "Ноты Аромата", shipping: "Доставка и Возврат", shippingText: "Бесплатная стандартная доставка при заказе от $150. Возврат в течение 30 дней.", reviews: "отзывов" },
+      cart: { title: "Ваша Корзина", empty: "Корзина пуста", explore: "Смотреть Ароматы", total: "Итого", checkout: "Оформить заказ", continueShopping: "Продолжить покупки" },
+      checkout: { title: "Оформление Заказа", backToShop: "Назад в магазин", shipping: "Данные Доставки", payment: "Данные Оплаты", firstName: "Имя", lastName: "Фамилия", email: "Email", address: "Адрес", city: "Город", zip: "Почтовый Индекс", country: "Страна", selectCountry: "Выберите страну", cardNumber: "Номер Карты", expiry: "Срок", cvv: "CVV", placeOrder: "Оформить Заказ", secure: "🔒 Безопасная зашифрованная оплата", emptyCart: "Ваша корзина пуста", summary: "Ваш Заказ", subtotal: "Подытог", shippingFee: "Доставка", shippingFree: "Бесплатно", orderTotal: "Итого", confirmed: "Заказ Подтверждён", confirmedDesc: "Спасибо за заказ. Ваши ароматы будут бережно упакованы и отправлены в течение 2 рабочих дней.", confirmedEmail: "Подтверждение отправлено на", continueShopping: "Продолжить покупки" },
+      collections: { eyebrow: "Кураторское Превосходство", title: "Наши Коллекции", desc: "Каждая коллекция рассказывает уникальную историю через аромат. Откройте наши миры и найдите свой запах.", explore: "Смотреть коллекцию", fragrances: "Ароматов" },
+      about: { eyebrow: "Наша История", title: "Наследие IkkiAttor", since: "С 1985 года", quote: "«Я хотел создавать ароматы, которые не просто носят, а проживают. Каждый флакон должен хранить воспоминание, путешествие, эмоцию.»", founder: "— Жан-Поль ИккиАттор, Основатель", year1: "1985", title1: "Начало", text1: "Жан-Поль ИккиАттор открыл своё первое ателье на Rue de la Paix в Париже с мечтой создавать ароматы, выходящие за рамки обычного.", year2: "1998", title2: "Мировое Признание", text2: "После получения престижной премии Prix de la Parfumerie, IkkiAttor Parfums расширился на бутики в Лондоне, Нью-Йорке и Токио.", year3: "2026", title3: "Новая Глава", text3: "Мы продолжаем наследие основателя, принимая устойчивость и инновации, создавая шедевры для нового поколения.", stat1: "Лет Мастерства", stat2: "Уникальных Ароматов", stat3: "Стран Мира", stat4: "Счастливых Клиентов" },
+      footer: { tagline: "Создаём исключительные ароматы с 1985 года. Каждый флакон — история, каждый запах — воспоминание.", collectionsTitle: "Коллекции", helpTitle: "Помощь", contactTitle: "Контакты", copyright: "© 2026 IkkiAttor Parfums. Все права защищены.", privacy: "Политика Конфиденциальности", terms: "Условия Использования", cookies: "Настройки Cookies", women: "Женские Ароматы", men: "Мужские Ароматы", unisex: "Унисекс", luxury: "Люкс Издание", giftSets: "Подарочные Наборы", sampleSets: "Пробники", trackOrder: "Отследить Заказ", shippingPolicy: "Политика Доставки", returnsEx: "Возврат и Обмен", fragranceGuide: "Гид по Ароматам", faq: "Вопросы и Ответы", contactUs: "Связаться с нами" },
+      admin: { title: "Доступ Администратора", email: "Email", password: "Пароль", login: "Войти", authorizedOnly: "Только для уполномоченных лиц", authenticating: "Проверка...", consoleLabel: "Консоль Управления", inventoryTitle: "Инвентарь Товаров", addProduct: "Добавить Товар", logout: "Выйти", loading: "Загрузка инвентаря...", editFragrance: "Редактировать Аромат", addFragrance: "Добавить Новый Аромат", productName: "Название Товара", brand: "Бренд", category: "Категория", price: "Цена ($)", stock: "Количество на складе", imageUrl: "URL Изображения", notes: "Ноты (через запятую)", notesPlaceholder: "Роза, Уд, Ваниль...", save: "Сохранить Аромат", cancel: "Отмена", confirmDelete: "Вы уверены, что хотите удалить этот товар?" },
+      common: { admin: "Админ", logout: "Выйти", save: "Сохранить", cancel: "Отмена", delete: "Удалить", edit: "Изменить", theme: { dark: "Тёмная", light: "Светлая" } }
     }
   },
   uz: {
     translation: {
-      nav: {
-        home: "Bosh sahifa",
-        shop: "Do'kon",
-        collections: "To'plamlar",
-        about: "Biz haqimizda",
-        search: "Atirlarni qidirish...",
-        cart: "Savat"
+      nav: { home: "Bosh sahifa", shop: "Do'kon", collections: "To'plamlar", about: "Biz haqimizda", search: "Atirlarni qidirish...", cart: "Savat" },
+      hero: { subtitle: "Hashamatli Atirlar Uyi", title: "Nafislik Mohiyati", cta: "To'plamni Ko'rish", explore: "Kashf etish", description: "Dunyoning eng yaxshi atirchilari tomonidan yaratilgan noyob va nafis atirlar to'plamimizni kashf eting." },
+      trust: { shipping: "Bepul Yetkazib Berish", shippingSub: "$150 dan ortiq buyurtmalar uchun", returns: "Oson Qaytarish", returnsSub: "30 kunlik qaytarish siyosati", authentic: "Haqiqiy", authenticSub: "100% original mahsulotlar", gift: "Sovg'a O'rash", giftSub: "Bepul xizmat" },
+      featured: { eyebrow: "Siz Uchun", title: "Tanlangan Atirlar", viewAll: "Hammasini ko'rish" },
+      philosophy: { eyebrow: "Bizning Falsafamiz", quote: "«Atr — ko'rinmas moda. Yuzni unutish mumkin, lekin hidni hech qachon.»", author: "— Jean-Paul IkkiAttor, Asoschisi" },
+      categories: { eyebrow: "Kategoriya Bo'yicha", title: "Bizning To'plamlar", products: "Mahsulot" },
+      bestsellers: { eyebrow: "Sevimlilar", title: "Eng Ko'p Sotilganlar" },
+      promise: {
+        eyebrow: "Nima Uchun IkkiAttor", title: "IkkiAttor Va'dasi",
+        item1Title: "Noyob Ingredientlar", item1Text: "Biz faqat eng yaxshi ingredientlardan foydalanamiz — Bolgariya atirguli, Gaiti vetiveri va Yaqin Sharqdan qimmatbaho ud.",
+        item2Title: "Usta Atirchilar", item2Text: "Har bir atr o'nlab yillik tajribaga ega mukofotlangan atirchilar tomonidan yaratiladi.",
+        item3Title: "Barqaror Hashamat", item3Text: "Bizning qadoqlashimiz qayta ishlangan materiallardan, barcha ingredientlar ekologik fermalardan olinadi.",
       },
-      hero: {
-        subtitle: "Hashamatli Atirlar Uyi",
-        title: "Nafislik Mohiyati",
-        cta: "To'plamni Ko'rish"
-      },
-      common: {
-        admin: "Admin",
-        logout: "Chiqish",
-        save: "Saqlash",
-        cancel: "Bekor qilish",
-        delete: "O'chirish",
-        edit: "Tahrirlash"
-      }
+      newsletter: { eyebrow: "Bizga Qo'shiling", title: "Eksklyuziv Takliflar", desc: "Axborot byulletenimizga obuna bo'ling va birinchi buyurtmangizga 10% chegirma oling.", placeholder: "Email manzilingiz", subscribe: "Obuna bo'lish", success: "✦ Obuna bo'lganingiz uchun rahmat! Chegirma kodingiz yo'lda." },
+      shop: { eyebrow: "IkkiAttor Parfums", title: "Barcha Atirlar", products: "mahsulot", sortLabel: "Saralash:", filters: "Filtrlar", clearFilters: "Filtrlarni tozalash", noResults: "Atirlar topilmadi", noResultsSub: "Filtrlarni o'zgartiring", category: "Kategoriya", price: "Narx", featured: "Mashhur", topRated: "Yuqori Reyting", priceLow: "Narx: pastdan yuqoriga", priceHigh: "Narx: yuqoridan pastga" },
+      product: { backToShop: "Do'kon", keyNotes: "Asosiy Notalar", qty: "Miqdor", addToCart: "Savatga qo'shish", added: "Qo'shildi!", notFound: "Atr topilmadi", relatedEyebrow: "Sizga Ham Yoqishi Mumkin", relatedTitle: "O'xshash Atirlar", description: "Tavsif", fragranceNotes: "Atr Notalari", shipping: "Yetkazib Berish va Qaytarish", shippingText: "$150 dan ortiq buyurtmalar uchun bepul yetkazib berish. Foydalanilmagan mahsulotlarni 30 kun ichida qaytarish mumkin.", reviews: "sharh" },
+      cart: { title: "Savatingiz", empty: "Savatchangiz bo'sh", explore: "Atirlarni Ko'rish", total: "Jami", checkout: "Buyurtma berish", continueShopping: "Xaridni davom ettirish" },
+      checkout: { title: "Buyurtmani Rasmiylashtirish", backToShop: "Do'konga qaytish", shipping: "Yetkazib Berish Ma'lumotlari", payment: "To'lov Ma'lumotlari", firstName: "Ism", lastName: "Familiya", email: "Email", address: "Manzil", city: "Shahar", zip: "Pochta Indeksi", country: "Mamlakat", selectCountry: "Mamlakatni tanlang", cardNumber: "Karta Raqami", expiry: "Amal Qilish Muddati", cvv: "CVV", placeOrder: "Buyurtma Berish", secure: "🔒 Xavfsiz va shifrlangan to'lov", emptyCart: "Savatingiz bo'sh", summary: "Buyurtmangiz", subtotal: "Oraliq Jami", shippingFee: "Yetkazib Berish", shippingFree: "Bepul", orderTotal: "Jami", confirmed: "Buyurtma Tasdiqlandi", confirmedDesc: "Buyurtmangiz uchun rahmat. Atirlaringiz ehtiyotkorlik bilan qadoqlanib, 2 ish kuni ichida jo'natiladi.", confirmedEmail: "Tasdiqlash quyidagi manziliga yuborildi", continueShopping: "Xaridni davom ettirish" },
+      collections: { eyebrow: "Kuratorlik Mukammalligi", title: "Bizning To'plamlar", desc: "Har bir to'plam atr orqali noyob hikoya aytadi. Bizning dunyolarimizni kashf eting va ruhingizga mos atirni toping.", explore: "To'plamni Ko'rish", fragrances: "Atr" },
+      about: { eyebrow: "Bizning Tariximiz", title: "IkkiAttor Merosi", since: "1985 yildan beri", quote: "«Men shunchaki kiyiladigan emas, balki boshdan kechirilgan atirlar yaratmoqchi edim. Har bir shisha xotira, sayohat, his-tuyg'ularni o'z ichiga olishi kerak.»", founder: "— Jean-Paul IkkiAttor, Asoschisi", year1: "1985", title1: "Boshlanish", text1: "Jean-Paul IkkiAttor Parijda Rue de la Paix ko'chasida o'zining birinchi atelésini ochdi.", year2: "1998", title2: "Jahon Tan Olishi", text2: "Nufuzli Prix de la Parfumerie mukofotini olgandan so'ng, IkkiAttor Parfums London, Nyu-York va Tokioga kengaydi.", year3: "2026", title3: "Yangi Bob", text3: "Biz asoschimizning merosini davom ettirib, barqarorlik va innovatsiyalarni qabul qilgan holda yangi avlod uchun shoh asarlar yaratamiz.", stat1: "Yillik Mahorat", stat2: "Noyob Atirlar", stat3: "Dunyo Bo'ylab Mamlakatlar", stat4: "Xursand Mijozlar" },
+      footer: { tagline: "1985 yildan beri ajoyib atirlar yaratamiz. Har bir shisha — hikoya, har bir hid — xotira.", collectionsTitle: "To'plamlar", helpTitle: "Yordam", contactTitle: "Aloqa", copyright: "© 2026 IkkiAttor Parfums. Barcha huquqlar himoyalangan.", privacy: "Maxfiylik Siyosati", terms: "Foydalanish Shartlari", cookies: "Cookie Sozlamalari", women: "Ayollar Atiri", men: "Erkaklar Atiri", unisex: "Uniseks", luxury: "Lyuks Nashr", giftSets: "Sovg'a To'plamlari", sampleSets: "Namunalar", trackOrder: "Buyurtmani Kuzatish", shippingPolicy: "Yetkazib Berish Siyosati", returnsEx: "Qaytarish va Almashtirish", fragranceGuide: "Atr Qo'llanmasi", faq: "Ko'p So'raladigan Savollar", contactUs: "Biz bilan Bog'laning" },
+      admin: { title: "Admin Kirish", email: "Email Manzili", password: "Parol", login: "Kirish", authorizedOnly: "Faqat vakolatli shaxslar uchun", authenticating: "Tekshirilmoqda...", consoleLabel: "Boshqaruv Konsoli", inventoryTitle: "Mahsulot Inventari", addProduct: "Mahsulot Qo'shish", logout: "Chiqish", loading: "Inventar yuklanmoqda...", editFragrance: "Atrni Tahrirlash", addFragrance: "Yangi Atr Qo'shish", productName: "Mahsulot Nomi", brand: "Brend", category: "Kategoriya", price: "Narx ($)", stock: "Ombordagi Miqdor", imageUrl: "Rasm URL", notes: "Notalar (vergul bilan)", notesPlaceholder: "Atirgul, Ud, Vanil...", save: "Atrni Saqlash", cancel: "Bekor qilish", confirmDelete: "Bu mahsulotni o'chirishni tasdiqlaysizmi?" },
+      common: { admin: "Admin", logout: "Chiqish", save: "Saqlash", cancel: "Bekor qilish", delete: "O'chirish", edit: "Tahrirlash", theme: { dark: "Qorong'u", light: "Yorug'" } }
     }
   }
 };
@@ -86,9 +92,7 @@ i18n
   .init({
     resources,
     fallbackLng: 'uz',
-    interpolation: {
-      escapeValue: false,
-    },
+    interpolation: { escapeValue: false },
   });
 
 export default i18n;

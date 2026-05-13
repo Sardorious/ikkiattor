@@ -1,10 +1,10 @@
 import { useState, useMemo } from "react";
 import { useSearchParams } from "react-router";
+import { useTranslation } from "react-i18next";
 import { SlidersHorizontal, X, ChevronDown, ChevronUp } from "lucide-react";
 import { ProductCard } from "../components/ProductCard";
 import { useProducts, useCategories } from "../hooks/useProducts";
 
-const allCategories = ["All", "Women", "Men", "Unisex"];
 const priceRanges = [
   { label: "Under $150", min: 0, max: 150 },
   { label: "$150 – $200", min: 150, max: 200 },
@@ -13,12 +13,14 @@ const priceRanges = [
 ];
 
 export function Shop() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const defaultCategory = searchParams.get("category") || "All";
+  const defaultQuery = searchParams.get("q") || "";
 
   const { products, loading: productsLoading } = useProducts();
-  const { categories, loading: categoriesLoading } = useCategories();
-  
+  const { categories } = useCategories();
+
   const [selectedCategory, setSelectedCategory] = useState(defaultCategory);
   const [selectedPrice, setSelectedPrice] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState("featured");
@@ -29,217 +31,133 @@ export function Shop() {
     if (!products) return [];
     let result = [...products];
 
+    if (defaultQuery) {
+      const q = defaultQuery.toLowerCase();
+      result = result.filter(
+        (p) => p.name.toLowerCase().includes(q) || p.notes.join(" ").toLowerCase().includes(q) || p.category.toLowerCase().includes(q)
+      );
+    }
+
     if (selectedCategory !== "All") {
       result = result.filter((p) => p.category === selectedCategory);
     }
 
     if (selectedPrice) {
       const range = priceRanges.find((r) => r.label === selectedPrice);
-      if (range) {
-        result = result.filter((p) => p.price >= range.min && p.price <= range.max);
-      }
+      if (range) result = result.filter((p) => p.price >= range.min && p.price <= range.max);
     }
 
     switch (sortBy) {
-      case "price-asc":
-        result.sort((a, b) => a.price - b.price);
-        break;
-      case "price-desc":
-        result.sort((a, b) => b.price - a.price);
-        break;
-      case "rating":
-        result.sort((a, b) => b.rating - a.rating);
-        break;
-      default:
-        break;
+      case "price-asc": result.sort((a, b) => a.price - b.price); break;
+      case "price-desc": result.sort((a, b) => b.price - a.price); break;
+      case "rating": result.sort((a, b) => b.rating - a.rating); break;
     }
-
     return result;
-  }, [selectedCategory, selectedPrice, sortBy, products]);
+  }, [selectedCategory, selectedPrice, sortBy, products, defaultQuery]);
 
-  const toggleSection = (section: keyof typeof expandedSections) => {
+  const toggleSection = (section: keyof typeof expandedSections) =>
     setExpandedSections((prev) => ({ ...prev, [section]: !prev[section] }));
-  };
 
   const FilterContent = () => (
     <div className="space-y-6">
-      {/* Category */}
       <div>
-        <button
-          onClick={() => toggleSection("category")}
-          className="flex items-center justify-between w-full pb-3 border-b border-[#1a1a1a]"
-        >
-          <span
-            className="text-[#c9a96e] tracking-widest uppercase"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", fontWeight: 500 }}
-          >
-            Category
-          </span>
-          {expandedSections.category ? <ChevronUp size={14} className="text-[#888]" /> : <ChevronDown size={14} className="text-[#888]" />}
+        <button onClick={() => toggleSection("category")} className="flex items-center justify-between w-full pb-3 border-b" style={{ borderColor: "var(--ikki-border)" }}>
+          <span className="tracking-widest uppercase" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", fontWeight: 500, color: "var(--ikki-gold)" }}>{t("shop.category")}</span>
+          {expandedSections.category ? <ChevronUp size={14} style={{ color: "var(--ikki-text-muted)" }} /> : <ChevronDown size={14} style={{ color: "var(--ikki-text-muted)" }} />}
         </button>
         {expandedSections.category && (
           <div className="mt-3 space-y-2">
-            {["All", ...categories.map(c => c.name)].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`block w-full text-left transition-colors ${
-                  selectedCategory === cat ? "text-[#c9a96e]" : "text-[#888] hover:text-[#c9a96e]"
-                }`}
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem" }}
-              >
-                {selectedCategory === cat && <span className="mr-2">✦</span>}
-                {cat}
+            {["All", ...categories.map((c) => c.name)].map((cat) => (
+              <button key={cat} onClick={() => setSelectedCategory(cat)} className="block w-full text-left transition-colors"
+                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", color: selectedCategory === cat ? "var(--ikki-gold)" : "var(--ikki-text-dim)" }}>
+                {selectedCategory === cat && <span className="mr-2">✦</span>}{cat}
               </button>
             ))}
           </div>
         )}
       </div>
 
-      {/* Price */}
       <div>
-        <button
-          onClick={() => toggleSection("price")}
-          className="flex items-center justify-between w-full pb-3 border-b border-[#1a1a1a]"
-        >
-          <span
-            className="text-[#c9a96e] tracking-widest uppercase"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", fontWeight: 500 }}
-          >
-            Price
-          </span>
-          {expandedSections.price ? <ChevronUp size={14} className="text-[#888]" /> : <ChevronDown size={14} className="text-[#888]" />}
+        <button onClick={() => toggleSection("price")} className="flex items-center justify-between w-full pb-3 border-b" style={{ borderColor: "var(--ikki-border)" }}>
+          <span className="tracking-widest uppercase" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", fontWeight: 500, color: "var(--ikki-gold)" }}>{t("shop.price")}</span>
+          {expandedSections.price ? <ChevronUp size={14} style={{ color: "var(--ikki-text-muted)" }} /> : <ChevronDown size={14} style={{ color: "var(--ikki-text-muted)" }} />}
         </button>
         {expandedSections.price && (
           <div className="mt-3 space-y-2">
             {priceRanges.map((range) => (
-              <button
-                key={range.label}
-                onClick={() =>
-                  setSelectedPrice(selectedPrice === range.label ? null : range.label)
-                }
-                className={`block w-full text-left transition-colors ${
-                  selectedPrice === range.label ? "text-[#c9a96e]" : "text-[#888] hover:text-[#c9a96e]"
-                }`}
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem" }}
-              >
-                {selectedPrice === range.label && <span className="mr-2">✦</span>}
-                {range.label}
+              <button key={range.label} onClick={() => setSelectedPrice(selectedPrice === range.label ? null : range.label)}
+                className="block w-full text-left transition-colors"
+                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", color: selectedPrice === range.label ? "var(--ikki-gold)" : "var(--ikki-text-dim)" }}>
+                {selectedPrice === range.label && <span className="mr-2">✦</span>}{range.label}
               </button>
             ))}
           </div>
         )}
       </div>
 
-      {/* Clear */}
       {(selectedCategory !== "All" || selectedPrice) && (
-        <button
-          onClick={() => {
-            setSelectedCategory("All");
-            setSelectedPrice(null);
-          }}
-          className="text-[#888] hover:text-red-400 transition-colors flex items-center gap-2"
-          style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem" }}
-        >
-          <X size={12} /> Clear Filters
+        <button onClick={() => { setSelectedCategory("All"); setSelectedPrice(null); }}
+          className="flex items-center gap-2 transition-colors"
+          style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", color: "var(--ikki-text-muted)" }}>
+          <X size={12} /> {t("shop.clearFilters")}
         </button>
       )}
     </div>
   );
 
   return (
-    <div className="bg-[#0a0a0a] min-h-screen pt-24">
-      {/* Header */}
-      <div className="max-w-7xl mx-auto px-6 py-10 border-b border-[#c9a96e]/15">
-        <p
-          className="text-[#c9a96e] tracking-[0.3em] uppercase mb-2"
-          style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem" }}
-        >
-          IkkiAttor Parfums
-        </p>
-        <h1
-          className="text-white"
-          style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300 }}
-        >
-          All Fragrances
+    <div className="min-h-screen pt-24" style={{ background: "var(--ikki-bg)" }}>
+      <div className="max-w-7xl mx-auto px-6 py-10 border-b" style={{ borderColor: "var(--ikki-border-gold)" }}>
+        <p className="tracking-[0.3em] uppercase mb-2" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-gold)" }}>{t("shop.eyebrow")}</p>
+        <h1 className="mb-1" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", fontWeight: 300, color: "var(--ikki-text)" }}>
+          {defaultQuery ? `"${defaultQuery}"` : t("shop.title")}
         </h1>
       </div>
 
-      {/* Toolbar */}
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between border-b border-[#1a1a1a]">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between border-b" style={{ borderColor: "var(--ikki-border)" }}>
         <div className="flex items-center gap-4">
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center gap-2 text-[#888] hover:text-[#c9a96e] transition-colors md:hidden"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem" }}
-          >
-            <SlidersHorizontal size={14} />
-            Filters
+          <button onClick={() => setShowFilters(!showFilters)} className="flex items-center gap-2 transition-colors md:hidden"
+            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", color: "var(--ikki-text-muted)" }}>
+            <SlidersHorizontal size={14} /> {t("shop.filters")}
           </button>
-          <p
-            className="text-[#555]"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem" }}
-          >
-            {filtered.length} products
+          <p style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", color: "var(--ikki-text-faint)" }}>
+            {filtered.length} {t("shop.products")}
           </p>
         </div>
-
         <div className="flex items-center gap-3">
-          <span
-            className="text-[#666] hidden sm:block"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem" }}
-          >
-            Sort:
-          </span>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-transparent text-[#888] border border-[#222] px-3 py-1.5 outline-none hover:border-[#c9a96e]/40 transition-colors"
-            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem" }}
-          >
-            <option value="featured">Featured</option>
-            <option value="rating">Top Rated</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
+          <span className="hidden sm:block" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", color: "var(--ikki-text-dim)" }}>{t("shop.sortLabel")}</span>
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}
+            className="border px-3 py-1.5 outline-none transition-colors"
+            style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", background: "transparent", color: "var(--ikki-text-muted)", borderColor: "var(--ikki-border)" }}>
+            <option value="featured">{t("shop.featured")}</option>
+            <option value="rating">{t("shop.topRated")}</option>
+            <option value="price-asc">{t("shop.priceLow")}</option>
+            <option value="price-desc">{t("shop.priceHigh")}</option>
           </select>
         </div>
       </div>
 
-      {/* Mobile Filter Panel */}
       {showFilters && (
-        <div className="md:hidden bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-6">
+        <div className="md:hidden border-b px-6 py-6" style={{ background: "var(--ikki-bg2)", borderColor: "var(--ikki-border)" }}>
           <FilterContent />
         </div>
       )}
 
       <div className="max-w-7xl mx-auto px-6 py-10 flex gap-10">
-        {/* Sidebar Filters */}
         <aside className="hidden md:block w-56 flex-shrink-0">
           <FilterContent />
         </aside>
-
-        {/* Products Grid */}
         <main className="flex-1">
-          {filtered.length === 0 ? (
+          {productsLoading ? (
+            <div className="text-center py-20" style={{ color: "var(--ikki-text-muted)" }}>...</div>
+          ) : filtered.length === 0 ? (
             <div className="text-center py-20">
-              <p
-                className="text-[#555]"
-                style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem" }}
-              >
-                No fragrances found
-              </p>
-              <p
-                className="text-[#444] mt-2"
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem" }}
-              >
-                Try adjusting your filters
-              </p>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.5rem", color: "var(--ikki-text-faint)" }}>{t("shop.noResults")}</p>
+              <p className="mt-2" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", color: "var(--ikki-text-faint)" }}>{t("shop.noResultsSub")}</p>
             </div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-              {filtered.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+              {filtered.map((product) => <ProductCard key={product.id} product={product} />)}
             </div>
           )}
         </main>

@@ -60,7 +60,7 @@ jobs:
           host: ${{ secrets.HOST_IP }}
           username: ${{ secrets.HOST_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml,nginx.conf"
+          source: "docker-compose.yml"
           target: "~/ikkiattor"
 
       - name: Deploy via SSH
@@ -79,9 +79,9 @@ jobs:
             echo ${{ secrets.GH_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
             # Pull and Update with exact requested order
-            docker-compose pull 
-            docker-compose rm -f ikkiattor-frontend ikkiattor-backend
-            docker-compose up -d 
+            docker compose pull 
+            docker compose rm -f ikkiattor-frontend ikkiattor-backend
+            docker compose up -d 
             docker image prune -af
 
       - name: Run Database Seed (Optional)
@@ -93,7 +93,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/ikkiattor
-            docker-compose exec -t backend npm run seed
+            docker compose exec -t backend npm run seed
 
 
 
