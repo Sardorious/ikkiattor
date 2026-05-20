@@ -3,6 +3,7 @@ import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
+declare const process: any;
 
 const products = [
   {
@@ -96,7 +97,7 @@ async function main() {
   console.log('Start seeding...');
 
   // 1. Create/Update Admin (Safe: Upsert ensures no duplicates)
-  const hashedPassword = await bcrypt.hash('admin@123', 10);
+  const hashedPassword = await bcrypt.hash('ikkiattor!23', 10);
   await prisma.admin.upsert({
     where: { email: 'admin@ikkiattor.uz' },
     update: {

@@ -3,8 +3,36 @@ import { useTranslation } from "react-i18next";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router";
 
+const getTelegramOrderUrl = (items: any[], totalPrice: number, lang: string) => {
+  const base = "https://t.me/numan_abdukarim";
+  if (items.length === 0) return base;
+
+  let text = "";
+  if (lang === "uz") {
+    text = "Assalomu alaykum! Men IkkiAttor saytidan quyidagi mahsulotlarni sotib olmoqchiman:\n\n";
+    items.forEach((item, index) => {
+      text += `${index + 1}. ${item.name} (${item.brand}) - ${item.size} x ${item.quantity} dona ($${(item.price * item.quantity).toFixed(2)})\n`;
+    });
+    text += `\nJami: $${totalPrice.toFixed(2)}`;
+  } else if (lang === "ru") {
+    text = "Здравствуйте! Я бы хотел приобрести следующие товары на сайте IkkiAttor:\n\n";
+    items.forEach((item, index) => {
+      text += `${index + 1}. ${item.name} (${item.brand}) - ${item.size} x ${item.quantity} шт. ($${(item.price * item.quantity).toFixed(2)})\n`;
+    });
+    text += `\nИтого: $${totalPrice.toFixed(2)}`;
+  } else {
+    text = "Hello! I would like to purchase the following products from the IkkiAttor store:\n\n";
+    items.forEach((item, index) => {
+      text += `${index + 1}. ${item.name} (${item.brand}) - ${item.size} x ${item.quantity} ($${(item.price * item.quantity).toFixed(2)})\n`;
+    });
+    text += `\nTotal: $${totalPrice.toFixed(2)}`;
+  }
+
+  return `${base}?text=${encodeURIComponent(text)}`;
+};
+
 export function CartDrawer() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { items, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, totalPrice, totalItems } = useCart();
 
   if (!isCartOpen) return null;
@@ -72,11 +100,11 @@ export function CartDrawer() {
               <span className="tracking-widest uppercase" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", color: "var(--ikki-text-muted)" }}>{t("cart.total")}</span>
               <span style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem", color: "var(--ikki-text)" }}>${totalPrice.toFixed(2)}</span>
             </div>
-            <Link to="/checkout" onClick={() => setIsCartOpen(false)}
-              className="block w-full text-center py-3 tracking-[0.2em] uppercase transition-colors"
-              style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", fontWeight: 500, background: "var(--ikki-gold)", color: "var(--ikki-bg)" }}>
+            <a href={getTelegramOrderUrl(items, totalPrice, i18n.language)} target="_blank" rel="noopener noreferrer" onClick={() => setIsCartOpen(false)}
+              className="block w-full text-center py-3 tracking-[0.2em] uppercase transition-colors font-medium"
+              style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.8rem", background: "var(--ikki-gold)", color: "var(--ikki-bg)" }}>
               {t("cart.checkout")}
-            </Link>
+            </a>
             <button onClick={() => setIsCartOpen(false)} className="w-full text-center py-3 tracking-widest uppercase transition-colors mt-2"
               style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", color: "var(--ikki-text-muted)" }}>
               {t("cart.continueShopping")}
