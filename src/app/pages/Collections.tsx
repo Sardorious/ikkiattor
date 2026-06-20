@@ -1,12 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router";
 import { ArrowRight } from "lucide-react";
+import floralImg from "../../assets/collection-floral.png";
+import darkImg from "../../assets/collection-dark.png";
+import oudImg from "../../assets/collection-oud.png";
 
 const collectionsData = [
-  { key: "floralEdit", name: "The Floral Edit", tag: "Women", count: 12, image: "https://images.unsplash.com/photo-1604903614277-fb7e5f6dfce4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21lbiUyMHBlcmZ1bWUlMjBmbG9yYWwlMjByb3NlfGVufDF8fHx8MTc3ODMzNzc4Mnww&ixlib=rb-4.1.0&q=80&w=1080", subtitle: "Women's Collection", description: "A celebration of nature's most beautiful blooms. From delicate roses to exotic jasmine, these fragrances capture femininity in its purest form." },
-  { key: "darkBold", name: "Dark & Bold", tag: "Men", count: 9, image: "https://images.unsplash.com/photo-1736605406021-afd8241d5edd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtZW4lMjBjb2xvZ25lJTIwd29vZHklMjBkYXJrJTIwYm90dGxlfGVufDF8fHx8MTc3ODMzNzc4Mnww&ixlib=rb-4.1.0&q=80&w=1080", subtitle: "Men's Collection", description: "For the man who leaves an impression. Deep woods, smoked leather, and spicy notes define this powerful and distinctive collection." },
-  { key: "oudPrive", name: "Oud Privé", tag: "Luxury", count: 6, image: "https://images.unsplash.com/photo-1637645367952-687dca50d655?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxvdWQlMjBhcmFiaWMlMjBwZXJmdW1lJTIwbHV4dXJ5fGVufDF8fHx8MTc3ODMzNzc4M3ww&ixlib=rb-4.1.0&q=80&w=1080", subtitle: "Luxury Collection", description: "Crafted from the rarest oud woods sourced from Cambodia and the Middle East. These exclusive fragrances are true works of olfactory art." },
-  { key: "lairDuTemps", name: "L'Air du Temps", tag: "Unisex", count: 8, image: "https://images.unsplash.com/photo-1709828933413-96855c9cfcc2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmcmVzaCUyMGNpdHJ1cyUyMHBlcmZ1bWUlMjBsaWdodHxlbnwxfHx8fDE3NzgzMzc3ODN8MA&ixlib=rb-4.1.0&q=80&w=1080", subtitle: "Unisex Collection", description: "Boundary-breaking fragrances that defy convention. Fresh, airy, and effortlessly modern—these scents belong to everyone." },
+  { key: "floralEdit", name: "The Floral Edit", tag: "Women", count: 12, image: floralImg, subtitle: "Women's Collection", description: "A celebration of nature's most beautiful blooms. From delicate roses to exotic jasmine, these fragrances capture femininity in its purest form." },
+  { key: "darkBold", name: "Dark & Bold", tag: "Men", count: 9, image: darkImg, subtitle: "Men's Collection", description: "For the man who leaves an impression. Deep woods, smoked leather, and spicy notes define this powerful and distinctive collection." },
+  { key: "oudPrive", name: "Oud Privé", tag: "Luxury", count: 6, image: oudImg, subtitle: "Luxury Collection", description: "Crafted from the rarest oud woods sourced from Cambodia and the Middle East. These exclusive fragrances are true works of olfactory art." },
 ];
 
 export function Collections() {
