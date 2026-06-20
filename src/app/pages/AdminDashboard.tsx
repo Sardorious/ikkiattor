@@ -19,9 +19,16 @@ export function AdminDashboard() {
     fetchProducts();
   }, [token]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    localStorage.removeItem("adminEmail");
+    navigate("/admin/login");
+  };
+
   const fetchProducts = async () => {
     try {
       const response = await fetch("/api/products");
+      if (!response.ok) throw new Error("Failed to fetch products");
       const data = await response.json();
       setProducts(data);
     } catch (err) {
@@ -39,16 +46,21 @@ export function AdminDashboard() {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (response.ok) fetchProducts();
+      // 🔴 Fix #2: surface auth/server failures instead of silently ignoring them
+      if (response.status === 401 || response.status === 403) {
+        alert("Your session has expired. Please log in again.");
+        handleLogout();
+        return;
+      }
+      if (response.ok) {
+        fetchProducts();
+      } else {
+        alert("Failed to delete product");
+      }
     } catch (err) {
       console.error(err);
+      alert("Failed to delete product");
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("adminToken");
-    localStorage.removeItem("adminEmail");
-    navigate("/admin/login");
   };
 
   const openEdit = (product: Product) => {
@@ -267,7 +279,15 @@ function AdminProductModal({ product, onClose, onSuccess, token }: any) {
       });
 
       if (response.ok) onSuccess();
-      else alert("Failed to save product");
+      else if (response.status === 401 || response.status === 403) {
+        alert("Your session has expired. Please log in again.");
+        localStorage.removeItem("adminToken");
+        localStorage.removeItem("adminEmail");
+        window.location.href = "/admin/login";
+      } else {
+        const data = await response.json().catch(() => ({}));
+        alert(data.error || "Failed to save product");
+      }
     } catch (err) {
       console.error(err);
     }

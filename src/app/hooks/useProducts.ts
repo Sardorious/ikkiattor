@@ -16,6 +16,7 @@ export function useProducts() {
         const data = await response.json();
         setProducts(data);
       } catch (err) {
+        console.error("useProducts:", err);
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
         setLoading(false);
@@ -42,6 +43,7 @@ export function useProduct(id: string | number) {
         const data = await response.json();
         setProduct(data);
       } catch (err) {
+        console.error("useProduct:", err);
         setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
         setLoading(false);
