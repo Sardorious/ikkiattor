@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, ChevronDown, Star, Truck, RotateCcw, Shield, Gift } from "lucide-react";
+import { ArrowRight, ChevronDown, Star, Truck, Shield, Gift } from "lucide-react";
 import { ProductCard } from "../components/ProductCard";
 import { useProducts, useCategories } from "../hooks/useProducts";
 
@@ -22,9 +22,8 @@ export function Home() {
 
   const trustBadges = [
     { icon: Truck, label: t("trust.shipping"), sub: t("trust.shippingSub") },
-    { icon: RotateCcw, label: t("trust.returns"), sub: t("trust.returnsSub") },
-    { icon: Shield, label: t("trust.authentic"), sub: t("trust.authenticSub") },
-    { icon: Gift, label: t("trust.gift"), sub: t("trust.giftSub") },
+    { icon: Shield, label: t("trust.returns"), sub: t("trust.returnsSub") },
+    { icon: Gift, label: t("trust.authentic"), sub: t("trust.authenticSub") },
   ];
 
   const promiseItems = [
@@ -64,7 +63,7 @@ export function Home() {
 
       {/* Trust Badges */}
       <section className="border-y" style={{ background: "var(--ikki-bg2)", borderColor: "var(--ikki-border-gold)" }}>
-        <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
           {trustBadges.map(({ icon: Icon, label, sub }) => (
             <div key={label} className="flex items-center gap-3">
               <Icon size={20} className="flex-shrink-0" style={{ color: "var(--ikki-gold)" }} />

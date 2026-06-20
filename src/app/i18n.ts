@@ -6,10 +6,10 @@ const resources = {
   en: {
     translation: {
       nav: { home: "Home", shop: "Shop", collections: "Collections", about: "About", search: "Search fragrances...", cart: "Bag" },
-      hero: { subtitle: "Luxury Fragrance House", title: "Essence of Elegance", cta: "Discover Collection", explore: "Explore", description: "Discover our curated collection of rare and exquisite fragrances, crafted by the world's finest perfumers." },
-      trust: { shipping: "Free Shipping", shippingSub: "On orders over $150", returns: "Easy Returns", returnsSub: "30-day return policy", authentic: "Authentic", authenticSub: "100% genuine products", gift: "Gift Wrapping", giftSub: "Complimentary service" },
+      hero: { subtitle: "Online Perfume Decant Store", title: "Original Perfumes — For Everyone!", cta: "Discover Collection", explore: "Explore", description: "Discover a wide range of original perfumery, available in 5 and 10 ml decants." },
+      trust: { shipping: "Regional Delivery", shippingSub: "Across all of Uzbekistan", returns: "Authentic", returnsSub: "100% genuine products", authentic: "Gift Wrapping", authenticSub: "Complimentary service", gift: "Gift Wrapping", giftSub: "Complimentary service" },
       featured: { eyebrow: "Curated For You", title: "Featured Fragrances", viewAll: "View All" },
-      philosophy: { eyebrow: "Our Philosophy", quote: "\"A fragrance is an invisible fashion. You can forget a face, but you can never forget a scent.\"", author: "— Jean-Paul IkkiAttor, Founder" },
+      philosophy: { eyebrow: "Our Philosophy", quote: "A good perfume should be for everyone.", author: "Perfume decants from 5 ml" },
       categories: { eyebrow: "Browse by Category", title: "Our Collections", products: "Products" },
       bestsellers: { eyebrow: "Most Loved", title: "Bestsellers" },
       promise: {
@@ -33,10 +33,10 @@ const resources = {
   ru: {
     translation: {
       nav: { home: "Главная", shop: "Магазин", collections: "Коллекции", about: "О нас", search: "Поиск ароматов...", cart: "Корзина" },
-      hero: { subtitle: "Дом Люксовой Парфюмерии", title: "Суть Элегантности", cta: "Открыть Коллекцию", explore: "Смотреть", description: "Откройте для себя нашу коллекцию редких и изысканных ароматов, созданных лучшими парфюмерами мира." },
-      trust: { shipping: "Бесплатная Доставка", shippingSub: "При заказе от $150", returns: "Лёгкий Возврат", returnsSub: "30-дневная политика возврата", authentic: "Подлинность", authenticSub: "100% оригинальная продукция", gift: "Подарочная Упаковка", giftSub: "Бесплатная услуга" },
+      hero: { subtitle: "Онлайн магазин распива парфюмов", title: "Оригинальные парфюмы — для всех!", cta: "Открыть Коллекцию", explore: "Смотреть", description: "Откройте для себя большое количество оригинальной парфюмерии, в формате 5 и 10 мл." },
+      trust: { shipping: "Доставка по регионам", shippingSub: "По всему Узбекистану", returns: "Подлинность", returnsSub: "100% оригинальная продукция", authentic: "Подарочная Упаковка", authenticSub: "Бесплатная услуга", gift: "Подарочная Упаковка", giftSub: "Бесплатная услуга" },
       featured: { eyebrow: "Для Вас", title: "Избранные Ароматы", viewAll: "Смотреть все" },
-      philosophy: { eyebrow: "Наша Философия", quote: "«Аромат — это невидимая мода. Лицо можно забыть, но запах — никогда.»", author: "— Жан-Поль ИккиАттор, Основатель" },
+      philosophy: { eyebrow: "Наша Философия", quote: "Хороший парфюм должен быть для всех.", author: "Распив парфюмов от 5 мл" },
       categories: { eyebrow: "По Категориям", title: "Наши Коллекции", products: "Товаров" },
       bestsellers: { eyebrow: "Любимые", title: "Бестселлеры" },
       promise: {
@@ -60,10 +60,10 @@ const resources = {
   uz: {
     translation: {
       nav: { home: "Bosh sahifa", shop: "Do'kon", collections: "To'plamlar", about: "Biz haqimizda", search: "Atirlarni qidirish...", cart: "Savat" },
-      hero: { subtitle: "Hashamatli Atirlar Uyi", title: "Nafislik Mohiyati", cta: "To'plamni Ko'rish", explore: "Kashf etish", description: "Dunyoning eng yaxshi atirchilari tomonidan yaratilgan noyob va nafis atirlar to'plamimizni kashf eting." },
-      trust: { shipping: "Bepul Yetkazib Berish", shippingSub: "$150 dan ortiq buyurtmalar uchun", returns: "Oson Qaytarish", returnsSub: "30 kunlik qaytarish siyosati", authentic: "Haqiqiy", authenticSub: "100% original mahsulotlar", gift: "Sovg'a O'rash", giftSub: "Bepul xizmat" },
+      hero: { subtitle: "Atir distillyatsiyasi onlayn do'koni", title: "Original atirlar — hamma uchun!", cta: "To'plamni Ko'rish", explore: "Kashf etish", description: "Original atirlarning katta tanlovini 5 va 10 ml formatida kashf eting." },
+      trust: { shipping: "Hududlar bo'yicha yetkazib berish", shippingSub: "Butun O'zbekiston bo'ylab", returns: "Haqiqiy", returnsSub: "100% original mahsulotlar", authentic: "Sovg'a O'rash", authenticSub: "Bepul xizmat", gift: "Sovg'a O'rash", giftSub: "Bepul xizmat" },
       featured: { eyebrow: "Siz Uchun", title: "Tanlangan Atirlar", viewAll: "Hammasini ko'rish" },
-      philosophy: { eyebrow: "Bizning Falsafamiz", quote: "«Atr — ko'rinmas moda. Yuzni unutish mumkin, lekin hidni hech qachon.»", author: "— Jean-Paul IkkiAttor, Asoschisi" },
+      philosophy: { eyebrow: "Bizning Falsafamiz", quote: "Yaxshi atir hamma uchun bo'lishi kerak.", author: "Atirlarni 5 ml dan quyib sotish" },
       categories: { eyebrow: "Kategoriya Bo'yicha", title: "Bizning To'plamlar", products: "Mahsulot" },
       bestsellers: { eyebrow: "Sevimlilar", title: "Eng Ko'p Sotilganlar" },
       promise: {
