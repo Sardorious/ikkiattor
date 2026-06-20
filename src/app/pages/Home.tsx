@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, ChevronDown, Star, Truck, Shield, Gift } from "lucide-react";
@@ -7,18 +6,11 @@ import { useProducts, useCategories } from "../hooks/useProducts";
 
 export function Home() {
   const { t } = useTranslation();
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
   const { products } = useProducts();
   const { categories } = useCategories();
 
   const featured = products ? products.slice(0, 4) : [];
   const bestsellers = products ? products.filter((p) => p.badge === "Bestseller" || p.rating >= 4.8) : [];
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) setSubscribed(true);
-  };
 
   const trustBadges = [
     { icon: Truck, label: t("trust.shipping"), sub: t("trust.shippingSub") },
@@ -175,28 +167,6 @@ export function Home() {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className="border-y" style={{ background: "var(--ikki-bg2)", borderColor: "var(--ikki-border-gold)" }}>
-        <div className="max-w-2xl mx-auto px-6 py-20 text-center">
-          <p className="tracking-[0.4em] uppercase mb-3" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.7rem", color: "var(--ikki-gold)" }}>{t("newsletter.eyebrow")}</p>
-          <h2 className="mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.2rem", fontWeight: 300, color: "var(--ikki-text)" }}>{t("newsletter.title")}</h2>
-          <p className="mb-8" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", lineHeight: "1.8", color: "var(--ikki-text-dim)" }}>{t("newsletter.desc")}</p>
-          {subscribed ? (
-            <p className="tracking-widest" style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", color: "var(--ikki-gold)" }}>{t("newsletter.success")}</p>
-          ) : (
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t("newsletter.placeholder")} required
-                className="flex-1 border px-4 py-3 outline-none transition-colors"
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.85rem", background: "var(--ikki-input-bg)", borderColor: "var(--ikki-border)", color: "var(--ikki-text)" }} />
-              <button type="submit" className="px-8 py-3 tracking-[0.2em] uppercase transition-colors whitespace-nowrap"
-                style={{ fontFamily: "'Jost', sans-serif", fontSize: "0.75rem", fontWeight: 500, background: "var(--ikki-gold)", color: "var(--ikki-bg)" }}>
-                {t("newsletter.subscribe")}
-              </button>
-            </form>
-          )}
         </div>
       </section>
     </div>
