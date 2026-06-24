@@ -97,7 +97,8 @@ async function main() {
   console.log('Start seeding...');
 
   // 1. Create/Update Admin (Safe: Upsert ensures no duplicates)
-  const hashedPassword = await bcrypt.hash('ikkiattor!23', 10);
+  const adminPassword = process.env.ADMIN_PASSWORD || 'admin@123';
+  const hashedPassword = await bcrypt.hash(adminPassword, 10);
   await prisma.admin.upsert({
     where: { email: 'admin@ikkiattor.uz' },
     update: {
